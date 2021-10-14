@@ -1,0 +1,9 @@
+#emoji-btn {
+    width: 90%;
+    margin-bottom: 10px;
+    border-radius: 0px 0px 1em 1em;
+}
+
+#emoji-picker-container:not(.shown) {
+    display: none;
+}
