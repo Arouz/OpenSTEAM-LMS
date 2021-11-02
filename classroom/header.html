@@ -165,20 +165,21 @@
         });
     </script>
     <script src="https://cdn.jsdelivr.net/npm/mobile-detect@1.4.2/mobile-detect.min.js"></script>
+    
     <script>
         const md = new MobileDetect(window.navigator.userAgent);
         const mobileDetect = md.mobile();
 
-        if ('serviceWorker' in navigator) {
-            window.addEventListener('load', function () {
-                navigator.serviceWorker.register('/sw.js').then(function (registration) {
-                    // Registration was successful
-                    console.log('ServiceWorker registration successful with scope: ', registration.scope);
-                }, function (err) {
-                    // registration failed :(
-                    console.log('ServiceWorker registration failed: ', err);
-                });
-            });
-        }
+        // if ('serviceWorker' in navigator) {
+        //     window.addEventListener('load', function () {
+        //         navigator.serviceWorker.register('/sw.js').then(function (registration) {
+        //             // Registration was successful
+        //             console.log('ServiceWorker registration successful with scope: ', registration.scope);
+        //         }, function (err) {
+        //             // registration failed :(
+        //             console.log('ServiceWorker registration failed: ', err);
+        //         });
+        //     });
+        // }
 
     </script>
