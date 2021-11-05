@@ -2,7 +2,7 @@
     <link rel="stylesheet" href="assets/css/modal.css">
     <link rel="stylesheet" href="assets/plugins/css/aren.emoji-feedback.css">
 <link rel="stylesheet" href="assets/plugins/css/.gitkeep">
-<link rel="stylesheet" href="assets/plugins/css/.gitkeep">
+<link rel="stylesheet" href="assets/plugins/css/aren.proactivities.css">
 <link rel="stylesheet" href="assets/plugins/css/aren.theme.css">
 <link rel="stylesheet" href="assets/plugins/css/aren.theme.main.css">
 <link rel="stylesheet" href="assets/plugins/css/aren.wysibb.css">
@@ -218,8 +218,13 @@
 </div>
 </div>
 <div id="classroom-dashboard-proactivities-panel-teacher" style="display:none;" class="dashboard-block ">
-    <div style="display: flex;">
-        <iframe src="https://www.cadre21.org/inscription/" frameborder="0" style="width: 90%;height: 85vh;margin: 0 auto;"></iframe>
+    <div id="proactivity-grid"></div>
+
+    <div id="current-proactivity" style="display: none;">
+        <button id="proactivity-return" class="btn c-btn-grey" onclick="proActivityReturn()">
+            <i class="fas fa-angle-left"></i>
+            <span class="text-capitalize" data-i18n="words.return">retour</span>
+        </button>
     </div>
 </div>
 <div id="classroom-dashboard-activities-panel" style="display:none;" class="dashboard-block">

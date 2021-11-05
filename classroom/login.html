@@ -40,8 +40,8 @@
 
         <ul class="navbar-nav mr-auto">
             <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="languageDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Dropdown
+                <a class="nav-link dropdown-toggle" href="#" id="languageDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-i18n="classroom.modals.settingsTeacher.lang">
+                    Langue
                 </a>
                 <div class="dropdown-menu" aria-labelledby="languageDropdown">
                     <button class="dropdown-item" onclick="changeLang('fr')">Français</button>
@@ -128,7 +128,7 @@
         <div id="classroom-login-code" class="container-border-left">
 
             <h3 class="font-weight-bold c-text-secondary" data-i18n="classroom.login.student"></h3>
-            <div class="c-secondary-form">
+            <div class="c-secondary-form mb-3">
                 <img src="assets/media/orange_lock.png" class="icon-label">
                 <label for="secret_code" data-i18n="classroom.login.codeInput"></label></br>
                 <input type="text" placeholder="123ABC" name="secret_code" id="class-code" required>
@@ -148,8 +148,8 @@
             </span>
         </div>
         <div id="classroom-login-gar" class="container-border-right">
-            <img src="assets/media/logoGAR.png" alt="Logo GAR">
-            <span class="gar-presentation-text my-3" data-i18n="[html]classroom.login.gar"></span>
+            <i class="fas fa-handshake fa-7x c-text-tertiary"></i>
+            <span class="gar-presentation-text my-3" data-i18n="[html]aren.login.gar"></span>
         </div>
         <button onclick="navigateLight('', 1)" class="btn close-login-classroom"><i class="fas fa-times"></i></button>
 
@@ -163,61 +163,62 @@
             <div class="form-group part-content-index part-row c-primary-form row">
 
                 <div class="col-md-12">
-                    <h3 class="font-weight-bold green-vitta text-center mb-4 text-uppercase" data-i18n="superadmin.account.registration.title"></h3>
-                    <p class="text-center" data-i18n="superadmin.account.registration.description"></p>
+                    <h3 class="font-weight-bold green-vitta text-center mb-4 text-uppercase" data-i18n="manager.account.registration.title"></h3>
+                    <p class="text-center" data-i18n="manager.account.registration.description"></p>
                 </div>
 
                 <div class="col-md-6">
                     <div class="form-row mb-4">
                         <img src="assets/media/green_user.png" class="icon-label">
-                        <label for="profile-form-first-name" class="tutorial-label" data-i18n="[html]superadmin.profil.firstname"></label>
+                        <label for="profile-form-first-name" class="tutorial-label" data-i18n="[html]manager.profil.firstname"></label>
                         <input type="text" name="first-name" id="profile-form-first-name" class="form-control form-control-lg">
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="form-row mb-4">
                         <img src="assets/media/green_user.png" class="icon-label">
-                        <label for="profile-form-last-name" class="tutorial-label" data-i18n="[html]superadmin.profil.lastname"></label>
+                        <label for="profile-form-last-name" class="tutorial-label" data-i18n="[html]manager.profil.lastname"></label>
                         <input type="text" name="last-name" id="profile-form-last-name" class="form-control form-control-lg">
                     </div>
                 </div>
 
-                <div class="col-md-4">
+                
+                <!-- <div class="col-md-4">
                     <div class="form-row mb-4">
                         <img src="assets/media/green_user.png" class="icon-label">
-                        <label for="profile-form-pseudo" class="tutorial-label" data-i18n="[html]superadmin.profil.nickname"></label>
+                        <label for="profile-form-pseudo" class="tutorial-label" data-i18n="[html]manager.profil.nickname"></label>
                         <input type="text" name="pseudo" id="profile-form-pseudo" class="form-control form-control-lg">
                     </div>
-                </div>
+                </div> -->
 
-                <div class="col-md-4">
+                <div class="col-md-6">
                     <div class="form-row mb-4">
                         <img src="assets/media/green_user.png" class="icon-label">
-                        <label for="profile-form-email" class="tutorial-label" data-i18n="[html]superadmin.profil.email"></label>
+                        <label for="profile-form-email" class="tutorial-label" data-i18n="[html]manager.profil.email"></label>
                         <input type="email" name="email" id="profile-form-email" class="form-control form-control-lg">
                     </div>
                 </div>
 
-                <div class="col-md-4">
+                <div class="col-md-6">
                     <div class="form-row mb-4">
                         <img src="assets/media/green_user.png" class="icon-label">
-                        <label for="profile-form-phone" class="tutorial-label" data-i18n="superadmin.profil.phone"></label>
-                        <input type="text" name="phone-number" class="form-control form-control-lg" id="profile-form-phone" class="form-control form-control-lg">
+                        <label for="profile-form-phone" class="tutorial-label" data-i18n="manager.profil.phone"></label>
+                        <input type="text" name="phone-number" class="form-control form-control-lg" id="profile-form-phone" data-i18n="[placeholder]aren.login.placeholder-phone">
                     </div>
                 </div>
 
                 <div class="col-md-12">
                     <div class="form-row mb-4">
                         <img src="assets/media/green_user.png" class="icon-label">
-                        <label for="profile-form-bio" class="tutorial-label" data-i18n="[html]superadmin.profil.bio"></label>
-                        <textarea class="form-control form-control-lg" name="mini-bio" id="profile-form-bio" rows="3"></textarea>
+                        <label for="profile-form-bio" class="tutorial-label" data-i18n="[html]manager.profil.bio"></label>
+                        <textarea class="form-control form-control-lg" name="mini-bio" id="profile-form-bio" rows="3" data-i18n="[placeholder]aren.login.placeholder-bio"></textarea>
                     </div>
                 </div>
 
                 <div class="col-md-12">
                     <div class="form-row mb-4">
                         <img src="assets/media/green_lock.png" class="icon-label">
-                        <label for="profile-form-school" class="tutorial-label" data-i18n="[html]superadmin.profil.school"></label>
+                        <label for="profile-form-school" class="tutorial-label" data-i18n="[html]manager.profil.school"></label>
                         <input type="text" class="form-control form-control-lg" name="school" id="profile-form-school">
                     </div>
                 </div>
@@ -225,13 +226,13 @@
                 <div class="col-md-6">
                     <div class="form-row mb-4">
                         <img src="assets/media/green_user.png" class="icon-label">
-                        <label for="profile-form-grade" class="tutorial-label" data-i18n="[html]superadmin.profil.grade"></label>
+                        <label for="profile-form-grade" class="tutorial-label" data-i18n="[html]manager.profil.grade"></label>
                         <select class="form-control" id="profile-form-grade" name="grade">
-                            <option selected value="0" data-i18n="superadmin.users.teacherGrades.0">Primaire</option>
-                            <option value="1" data-i18n="superadmin.users.teacherGrades.1">Collège</option>
-                            <option value="2" data-i18n="superadmin.users.teacherGrades.2">Lycée</option>
-                            <option value="3" data-i18n="superadmin.users.teacherGrades.3">Lycée professionel</option>
-                            <option value="4" data-i18n="superadmin.users.teacherGrades.4">POST-BAC</option>
+                            <option selected value="0" data-i18n="manager.users.teacherGrades.0">Primaire</option>
+                            <option value="1" data-i18n="manager.users.teacherGrades.1">Collège</option>
+                            <option value="2" data-i18n="manager.users.teacherGrades.2">Lycée</option>
+                            <option value="3" data-i18n="manager.users.teacherGrades.3">Lycée professionel</option>
+                            <option value="4" data-i18n="manager.users.teacherGrades.4">POST-BAC</option>
                         </select>
                     </div>
                 </div>
@@ -239,7 +240,7 @@
                 <div class="col-md-6">
                     <div class="form-row mb-4">
                         <img src="assets/media/green_user.png" class="icon-label">
-                        <label for="profile-form-subject" class="tutorial-label" data-i18n="[html]superadmin.profil.subject"></label>
+                        <label for="profile-form-subject" class="tutorial-label" data-i18n="[html]manager.profil.subject"></label>
                         <select class="form-control" id="profile-form-subject" name="subject">
                         </select>
                     </div>
@@ -248,51 +249,51 @@
                 <div class="col-md-6">
                     <div>
                         <img src="assets/media/green_lock.png" class="icon-label">
-                        <label for="profile-form-password" class="tutorial-label" data-i18n="[html]superadmin.profil.password"></label>
+                        <label for="profile-form-password" class="tutorial-label" data-i18n="[html]manager.profil.password"></label>
                     </div>
                     <div class="form-inline">
                         <input type="password" name="password" id="profile-form-password" class="form-control form-control-lg">
                         <i class="classroom-clickable fas fa-low-vision ml-2 password-display-toggler"></i>
-                        <p class="font-italic ml-2" data-i18n="superadmin.profil.passwordConstraints"></p>
+                        <p class="font-italic ml-2" data-i18n="manager.profil.passwordConstraints"></p>
                     </div>
                 </div>
 
                 <div class="col-md-6">
                     <img src="assets/media/green_lock.png" class="icon-label">
-                    <label for="profile-form-confirm-password" class="tutorial-label" data-i18n="[html]superadmin.profil.confirmPassword"></label>
+                    <label for="profile-form-confirm-password" class="tutorial-label" data-i18n="[html]manager.profil.confirmPassword"></label>
                     <div class="form-inline">
                         <input type="password" name="confirm-password" id="profile-form-confirm-password" class="form-control form-control-lg">
                         <i class="classroom-clickable fas fa-low-vision ml-2 password-display-toggler"></i>
                     </div>
                 </div>
             </div>
-            <p data-i18n="[html]superadmin.account.registration.disclaimerVittascience"></p>
-            <p data-i18n="[html]superadmin.account.registration.mandatory"></p>
-            <p data-i18n="[html]superadmin.account.registration.cguVittascience"></p>
+            <p data-i18n="[html]manager.account.registration.disclaimerVittascience"></p>
+            <p data-i18n="[html]manager.account.registration.mandatory"></p>
+            <p data-i18n="[html]manager.account.registration.cguVittascience"></p>
 
             <div class="form-check">
                 <input class="form-check-input" type="checkbox" id="cb_name_public">
-                <label class="form-check-label" for="cb_name_public" data-i18n="superadmin.account.registration.accountPublic">
+                <label class="form-check-label" for="cb_name_public" data-i18n="manager.account.registration.accountPublic">
                 </label>
             </div>
             <div class="form-check">
                 <input class="form-check-input" type="checkbox" id="cb_newsletter">
-                <label class="form-check-label" for="cb_newsletter" data-i18n="superadmin.account.registration.newsletter">
+                <label class="form-check-label" for="cb_newsletter" data-i18n="manager.account.registration.newsletter">
                 </label>
             </div>
             <div class="form-check">
                 <input class="form-check-input" type="checkbox" id="cb_alert_mail">
-                <label class="form-check-label" for="cb_alert_mail" data-i18n="superadmin.account.registration.mailAlert">
+                <label class="form-check-label" for="cb_alert_mail" data-i18n="manager.account.registration.mailAlert">
                 </label>
             </div>
             <div class="form-check">
                 <input class="form-check-input" type="checkbox" id="cb_allow_contact">
-                <label class="form-check-label" for="cb_allow_contact" data-i18n="superadmin.account.registration.allowContact">
+                <label class="form-check-label" for="cb_allow_contact" data-i18n="manager.account.registration.allowContact">
                 </label>
             </div>
             <div class="form-check">
                 <input class="form-check-input" type="checkbox" id="cb_adult" required>
-                <label class="form-check-label" for="cb_adult" data-i18n="superadmin.account.registration.confirmAdult">
+                <label class="form-check-label" for="cb_adult" data-i18n="manager.account.registration.confirmAdult">
                 </label>
             </div>
 

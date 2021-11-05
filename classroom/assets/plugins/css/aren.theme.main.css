@@ -57,3 +57,9 @@
 .activity-card.activity-card-quickpi {
     background-image: url("../images/card-quickpi.png");
 }
+
+/* Form icon label change */
+
+.c-primary-form .icon-label {
+    filter: hue-rotate(65deg) contrast(0.7) brightness(0.9);
+}

@@ -270,10 +270,13 @@ function loadLoginPageFAQStrings() {
                     },
                     "aren": {
                         "login": {
+                            "gar":"Profitez du module classe en toute simplicité à l'aide des connecteurs de votre ministère de l'éducation local.<br>Compatible GAR pour la France et selon votre pays, contactez info@areneducation.com",
                             "subtitle": "Une nouvelle façon pour les enseignants de profiter pleinement de la technologie !",
                             "features": {
                                 "paragraph": "Pour en savoir plus : Découvrez les nombreux outils de notre application"
-                            }
+                            },
+                            "placeholder-phone": "Facultatif",
+                            "placeholder-bio": "Facultatif - Vous pouvez indiquer ici votre cycle/niveau ainsi que vos matières enseignées.",
                         }
                     }
                 });
@@ -544,10 +547,13 @@ function loadLoginPageFAQStrings() {
                     },
                     "aren": {
                         "login": {
+                            "gar": "Take advantage of the classroom module with ease using your local ministry of education connectors.<br>GAR compatible for France and depending on your country, contact info@areneducation.com",
                             "subtitle": "A new way for teachers to take full advantage of technology!",
                             "features": {
                                 "paragraph": "To know more : Discover the many tools of our application"
-                            }
+                            },
+                            "placeholder-phone": "Optional",
+                            "placeholder-bio": "Optional - You can indicate your cycle/level and subjects taught here."
                         }
                     }
                 });
