@@ -42,7 +42,7 @@ function customWysibb() {
 		// Redefining the buttons in the wysibb menu (it's mandatory for the feature to work)
 		wbbOpt = {
 			showHotkeys: false,
-			buttons: ",bold,italic,underline,|,fontcolor,fontsize,|,justifyleft,justifycenter,justifyright,bullist,img,link,|,vittapdf,video,instruction,|,vittaiframe,genialyiframe,gdocsiframe,officeiframe,zoom"
+			buttons: ",bold,italic,underline,|,fontcolor,fontsize,|,justifyleft,justifycenter,justifyright,bullist,img,link,|,vittapdf,video,instruction,|,vittaiframe,cabriiframe,|,genialyiframe,gdocsiframe,officeiframe,zoom"
 		}
 
 		// Replacing the wysibb.init() method by a custom one
