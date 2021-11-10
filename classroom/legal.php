@@ -34,7 +34,7 @@
 </head>
 
 <body>
-    <div id="legal-div">
+    <div id="legal-div" class="container">
         <h2>
             Identification
         </h2>

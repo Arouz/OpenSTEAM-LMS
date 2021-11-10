@@ -34,7 +34,7 @@
 </head>
 
 <body>
-    <div id="cgv-div">
+    <div id="cgv-div" class="container">
 
         <h1>Conditions générales d’utilisation</h1>
         <h2>1. Champ d'application</h2>

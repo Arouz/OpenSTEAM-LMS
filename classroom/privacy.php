@@ -34,7 +34,7 @@
 </head>
 
 <body>
-    <div id="cgv-div">
+    <div id="cgv-div" class="container">
 
         <h1>Politique de protection des données personnelles</h1>
         <p>
