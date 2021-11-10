@@ -19,18 +19,8 @@ $demoStudent = !empty($_ENV['VS_DEMOSTUDENT'])
                 : 'demoStudent';
 
 $user = ConnectionManager::getSharedInstance()->checkConnected();
-if ($user) {
-    $tester = RegularDAO::getSharedInstance()->isTester($_SESSION['id']);
-    $admin = RegularDAO::getSharedInstance()->isAdmin($_SESSION['id']);
-    $testerProf = false;
-    $adminProf = false;
-    if (isset($_SESSION['idProf'])) {
-        $testerProf = RegularDAO::getSharedInstance()->isTester($_SESSION['idProf']);
-        $adminProf = RegularDAO::getSharedInstance()->isAdmin($_SESSION['idProf']);
-    }
-}
 
-if ($user && (!$user instanceof Regular || ($tester || $admin || $testerProf || $adminProf))) {
+if ($user) {
     header("Location: /classroom/home.php");
     die();
 }
@@ -38,8 +28,6 @@ if ($user && (!$user instanceof Regular || ($tester || $admin || $testerProf || 
 require_once(__DIR__ . "/header.html");
 ?>
 <link rel="stylesheet" href="/classroom/assets/css/main.css">
-<link rel="stylesheet" href="/classroom/assets/plugins/css/aren.theme.main.css">
-<link rel="stylesheet" href="/classroom/assets/plugins/css/aren.theme.css">
 
 <script src="./assets/js/lib/rotate.js"></script>
 <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css" />
