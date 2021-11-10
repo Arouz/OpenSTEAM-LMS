@@ -189,7 +189,8 @@
 			"invalidLink": "The link you entered is not valid",
 			"noUser" : "You have to add a student",
 			"pseudoMissingInCsvFile" : "Some students couldn't be added as their pseudo was missing",
-			"backendReplyPseudoMissingInCsv" : "Check the CSV file : empty line or pseudo missing"
+			"backendReplyPseudoMissingInCsv" : "Check the CSV file : empty line or pseudo missing",
+			"backendReplyPseudoMissingInUsersArray" : "There is one or more error(s) in the student(s) name(s)"
 		},
 		"ids": {
 			"classroom-dashboard-help-panel-teacher": "Help",
@@ -286,7 +287,8 @@
 				"autocorrect": "This activity has automated correction, do you like to activate it ?",
 				"nature": "Can the student submit the activity multiple times?",
 				"dateBegin": "Begin date :",
-				"dateEnd": "End date :"
+				"dateEnd": "End date :",
+				"retroAttribution" : "This activity will be added for every new students"
 			},
 			"toCopy": "This code allow you to join the classroom at ease :",
 			"copyLink": "The link to your class has been added to the clipboard",
@@ -730,7 +732,7 @@
 			"mailSentToUserReset": "An email has been sent to the user to change their password",
 			"mailNotSentToUserReset": "The password change email could not be sent to the user",
 			"appsUpdated": "User apps have been updated",
-			"updateApps": "Update apps",
+			"updateAppModalTitle": "Application",
 			"teacherGrades": {
 				"0": "Elementary School",
 				"1": "Middle School",
