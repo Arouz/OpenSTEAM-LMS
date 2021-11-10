@@ -1,47 +1,117 @@
 <!-- page de garde -->
 <!-- <div id="notif-div"></div> -->
-<div id="home-container">
-    <div class="text-center d-flex flex-column justify-content-center jumbotron-neutral">
-        <div id="interactive-elements-container" style="flex-grow:1;">
-            <div id="fake-blockly">
-                <span id="fake-blockly-desc">afficher</span>
-                <svg xmlns="http://www.w3.org/2000/svg" width="200" viewBox="0 0 191.9 55.4">
-                    <g id="fake-blockly-svg">
-                        <path d="M31.8 55.4h-8.9a5.46 5.46 0 01-3.8-1.6L16 50.7a4.57 4.57 0 00-3.1-1.3H5.4A5.38 5.38 0 010 44V6.8a5.38 5.38 0 015.4-5.4h7.1a5.43 5.43 0 013.6 1.4l3.8 3.5a4.62 4.62 0 003 1.1h10.2a4.4 4.4 0 003.5-1.7L39 2.6A5.4 5.4 0 0143.2.5L186.5 0a5.38 5.38 0 015.4 5.4v37.7a5.38 5.38 0 01-5.4 5.4l-143.7-.1a4.82 4.82 0 00-3.2 1.3l-3.9 4a5.22 5.22 0 01-3.9 1.7zM5.3 2.4A4.44 4.44 0 00.9 6.8V44a4.44 4.44 0 004.4 4.4h7.5a5.46 5.46 0 013.8 1.6l3.1 3.1a4.57 4.57 0 003.1 1.3h8.9a4.82 4.82 0 003.2-1.3l3.9-4a5.52 5.52 0 013.9-1.6l143.7.1a4.44 4.44 0 004.4-4.4V5.5a4.44 4.44 0 00-4.4-4.4l-143.3.5a4.4 4.4 0 00-3.5 1.7l-2.4 3.1a5.45 5.45 0 01-4.3 2.1H22.7a5.43 5.43 0 01-3.6-1.4l-3.8-3.5a4.62 4.62 0 00-3-1.1l-7-.1z" fill="#24a069" />
-                        <path d="M185.9 23.9a16.35 16.35 0 00-16.4-16.4H79.3a16.35 16.35 0 00-16.4 16.4v.2a16.35 16.35 0 0016.4 16.4h90.2a16.35 16.35 0 0016.4-16.4v-.2zm-27 11.6a2 2 0 01-2 2h-65a2 2 0 01-2-2v-22a2 2 0 012-2h65a2 2 0 012 2z" fill="#e6e6e6" />
-                        <path fill="#fff" class="cls-3" d="M76.9 23a1.9 1.9 0 01.8 1.5 2.27 2.27 0 01-.6 1.6 2.17 2.17 0 01-3 0 1.82 1.82 0 01-.6-1.4 2.72 2.72 0 01.6-1.7l1.8-2.6H78L76.9 23zm6 0a1.9 1.9 0 01.8 1.5 2.27 2.27 0 01-.6 1.6 2.17 2.17 0 01-3 0 1.82 1.82 0 01-.6-1.4 2.72 2.72 0 01.6-1.7l1.8-2.6H84L82.9 23zM173.9 24.1a1.9 1.9 0 01-.8-1.5 2.11 2.11 0 01.6-1.6 2.17 2.17 0 013 0 1.82 1.82 0 01.6 1.4 2.72 2.72 0 01-.6 1.7l-1.8 2.6h-2.1zm-6 0a1.9 1.9 0 01-.8-1.5 2.11 2.11 0 01.6-1.6 2.17 2.17 0 013 0 1.82 1.82 0 01.6 1.4 2.72 2.72 0 01-.6 1.7l-1.8 2.6h-2.1z" />
-                    </g>
-                </svg>
-                <input type="text" id="fake-blockly-input" name="name" maxlength="20" placeholder="Bonjour !" value="Bonjour !" autocomplete="off" data-lpignore="true">
-            </div>
-            <span id="fake-code"><span style="color: #AC00B1;">print</span><span>(</span><span id="fake-code-text" style="color:#009651;" data-i18n="classroom.login.hello1"></span><span>)</span></span>
-            <span id="fake-display" data-i18n="classroom.login.hello2"></span>
-        </div>
-        <div style="flex-grow:1;">
-            <h1 data-i18n="[html]classroom.login.neutralTitle"></h1>
-            <span class="sub-text" data-i18n="classroom.login.subtitle"></span>
-        </div>
+<style>
+    .aren-logo {
+        max-width: 250px;
+        margin-bottom: 1.25em;
+    }
 
-        <div id="open-login-menu" style="flex-grow:2;">
-            <button class="btn btn-lg c-btn-primary" id="home-connexion"><span data-i18n="classroom.login.login"></span>
-                <i class="fas fa-chevron-right"></i></button></br>
-            <!--<a href="#">En savoir plus</a>-->
-        </div>
+    #classroom-faq h2 {
+        font-size: 3em;
+    }
 
+    .navbar {
+        background-color: #eaf4fb;
+    }
+
+    .navbar a {
+        color: var(--classroom-text-1) !important;
+    }
+
+    .navbar .dropdown-menu,
+    .navbar .dropdown-item {
+        background: var(--classroom-background);
+        color: var(--classroom-text-0);
+    }
+
+    .navbar .dropdown-item:focus,
+    .navbar .dropdown-item:hover {
+        background: var(--classroom-background);
+        color: var(--classroom-text-1) !important;
+    }
+
+    .theme-dark .navbar {
+        background-color: #0c293d;
+    }
+</style>
+
+<nav class="navbar navbar-expand-lg">
+    <a class="navbar-brand" href="/classroom/login.php">
+        <img src="./assets/plugins/images/logo_aren-education-plus.png" height="30" alt="arèn+ logo">
+    </a>
+    <div class="collapse navbar-collapse">
+
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="languageDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-i18n="classroom.modals.settingsTeacher.lang">
+                    Langue
+                </a>
+                <div class="dropdown-menu" aria-labelledby="languageDropdown">
+                    <button class="dropdown-item" onclick="changeLang('fr')">Français</button>
+                    <button class="dropdown-item" onclick="changeLang('en')">English</button>
+                </div>
+            </li>
+
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="accessibilityDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-i18n="switchAccessibility.title">
+                    Accessibilité
+                </a>
+                <div class="dropdown-menu a11y-dropdown" aria-labelledby="accessibilityDropdown">
+                    <form action="javascript:void(0);" id="access-form">
+                        <h5 class="c-text-primary text-center"><i class="fas fa-low-vision"></i> <span data-i18n='switchAccessibility.title'></span></h5>
+
+                        <h5 data-i18n='switchAccessibility.theme'>Thème</h5>
+                        <div style="margin: 0 auto; width: 196px">
+                            <input type="radio" id="radio-light-theme" name="theme" value="light">
+                            <label for="radio-light-theme" data-i18n='switchAccessibility.light_theme'>Thème
+                                clair</label><br>
+
+                            <input type="radio" id="radio-dark-theme" name="theme" value="dark">
+                            <label for="radio-dark-theme" data-i18n='switchAccessibility.dark_theme'>Thème
+                                sombre</label><br>
+                        </div>
+
+                        <h5 data-i18n='switchAccessibility.font'>Polices</h5>
+                        <div style="margin: 0 auto; width: 196px">
+                            <input type="radio" id="radio-basic-font" name="font" value="basic">
+                            <label for="radio-basic-font" style="font-family: 'Open Sans'!important" data-i18n='switchAccessibility.basic_font'>Basique</label><br>
+
+                            <input type="radio" id="radio-luciole-font" name="font" value="luciole">
+                            <label for="radio-luciole-font" style="font-family: 'Luciole'!important">Luciole</label><br>
+
+                            <input type="radio" id="radio-dys-font" name="font" value="dys">
+                            <label for="radio-dys-font" style="font-family: 'OpenDyslexic'!important">OpenDyslexic</label><br>
+
+                            <input type="radio" id="radio-arial-font" name="font" value="arial">
+                            <label for="radio-arial-font" style="font-family: 'Arial'!important">Arial</label><br>
+
+                            <input type="radio" id="radio-verdana-font" name="font" value="verdana">
+                            <label for="radio-verdana-font" style="font-family: 'Verdana'!important">Verdana</label><br>
+                        </div>
+                    </form>
+                </div>
+            </li>
+
+        </ul>
     </div>
-    <div id="classroom-flow" class="row w-100 py-5 justify-content-md-center">
-        <div class="col-4 col-lg-3 text-center">
-            <img class="img-fluid" src="assets/media/create_activities.png" alt=""></br>
-            <span class="text-uppercase" data-i18n="[html]classroom.login.activities"></span>
-        </div>
-        <div class="col-4 col-lg-3 text-center">
-            <img class="img-fluid" src="assets/media/assign_activities.png" alt=""></br>
-            <span class="text-uppercase" data-i18n="[html]classroom.login.attribute"></span>
+</nav>
 
+<div id="home-container" class="container">
+    <div class="row my-5">
+        <div class="col-md-6">
+            <img class="aren-logo" src="./assets/plugins/images/logo_aren-education-plus.png" alt="Arèn logo">
+            <p data-i18n="aren.login.subtitle">Une nouvelle façon pour les enseignants de profiter pleinement de la technologie !</p>
+
+            <div id="open-login-menu" style="flex-grow:2;">
+                <button class="btn btn-lg c-btn-outline-primary" id="home-connexion">
+                    <i class="fas fa-lock"></i>
+                    <span data-i18n="classroom.login.login"></span>
+                </button>
+            </div>
         </div>
-        <div class="col-4 col-lg-3 text-center">
-            <img class="img-fluid" src="assets/media/visualise_activities.png" alt=""></br>
-            <span class="text-uppercase" data-i18n="[html]classroom.login.visualize"></span>
+
+        <div class="col-md-6">
+            <img class="img-fluid mt-3" src="./assets/plugins/images/devices.png" alt="Illustration">
         </div>
     </div>
 
@@ -51,20 +121,22 @@
         </div>
     </div>
 
-
 </div>
+
+<!-- Please refrain from editing the next sections, as they are used for the login system -->
+
 <!-- page de login à choix multiple -->
 <div id="classroom-login-container" style="display:none;">
     <div class="inner-login-container">
         <div id="classroom-login-code" class="container-border-left">
 
             <h3 class="font-weight-bold c-text-secondary" data-i18n="classroom.login.student"></h3>
-            <div class="c-secondary-form">
+            <div class="c-secondary-form mb-3">
                 <img src="assets/media/orange_lock.png" class="icon-label">
                 <label for="secret_code" data-i18n="classroom.login.codeInput"></label></br>
                 <input type="text" placeholder="123ABC" name="secret_code" id="class-code" required>
             </div>
-            <button class="btn c-btn-secondary" id="class-connexion" type="submit"><span data-i18n="words.confirm"></span>
+            <button class="btn c-btn-secondary" id="class-connexion" type="submit"><span class="text-capitalize" data-i18n="words.confirm"></span>
                 <i class="fas fa-chevron-right"></i></button>
         </div>
         <div id="classroom-login-vittascience-account" class="container-border-center">
@@ -79,8 +151,8 @@
             </span>
         </div>
         <div id="classroom-login-gar" class="container-border-right">
-            <img src="assets/media/logoGAR.png" alt="Logo GAR">
-            <span class="gar-presentation-text my-3" data-i18n="[html]classroom.login.gar"></span>
+            <i class="fas fa-handshake fa-7x c-text-tertiary"></i>
+            <span class="gar-presentation-text my-3" data-i18n="[html]aren.login.gar"></span>
         </div>
         <button onclick="navigateLight('', 1)" class="btn close-login-classroom"><i class="fas fa-times"></i></button>
 
@@ -98,14 +170,14 @@
                     <p class="text-center" data-i18n="manager.account.registration.description"></p>
                 </div>
 
-                <div class="col-md-6">
+                <div class="col-md">
                     <div class="form-row mb-4">
                         <img src="assets/media/green_user.png" class="icon-label">
                         <label for="profile-form-first-name" class="tutorial-label" data-i18n="[html]manager.profil.firstname"></label>
                         <input type="text" name="first-name" id="profile-form-first-name" class="form-control form-control-lg">
                     </div>
                 </div>
-                <div class="col-md-6">
+                <div class="col-md">
                     <div class="form-row mb-4">
                         <img src="assets/media/green_user.png" class="icon-label">
                         <label for="profile-form-last-name" class="tutorial-label" data-i18n="[html]manager.profil.lastname"></label>
@@ -113,7 +185,8 @@
                     </div>
                 </div>
 
-                <div class="col-md-4" id="registration_pseudo">
+
+                <div class="col-md" id="registration_pseudo">
                     <div class="form-row mb-4">
                         <img src="assets/media/green_user.png" class="icon-label">
                         <label for="profile-form-pseudo" class="tutorial-label" data-i18n="[html]manager.profil.nickname"></label>
@@ -121,7 +194,7 @@
                     </div>
                 </div>
 
-                <div class="col-md-4">
+                <div class="col-md">
                     <div class="form-row mb-4">
                         <img src="assets/media/green_user.png" class="icon-label">
                         <label for="profile-form-email" class="tutorial-label" data-i18n="[html]manager.profil.email"></label>
@@ -129,11 +202,11 @@
                     </div>
                 </div>
 
-                <div class="col-md-4" id="registration_phone">
+                <div class="col-md" id="registration_phone">
                     <div class="form-row mb-4">
                         <img src="assets/media/green_user.png" class="icon-label">
                         <label for="profile-form-phone" class="tutorial-label" data-i18n="manager.profil.phone"></label>
-                        <input type="text" name="phone-number" class="form-control form-control-lg" id="profile-form-phone" class="form-control form-control-lg">
+                        <input type="text" name="phone-number" class="form-control form-control-lg" id="profile-form-phone" data-i18n="[placeholder]aren.login.placeholder-phone">
                     </div>
                 </div>
 
@@ -141,7 +214,7 @@
                     <div class="form-row mb-4">
                         <img src="assets/media/green_user.png" class="icon-label">
                         <label for="profile-form-bio" class="tutorial-label" data-i18n="[html]manager.profil.bio"></label>
-                        <textarea class="form-control form-control-lg" name="mini-bio" id="profile-form-bio" rows="3"></textarea>
+                        <textarea class="form-control form-control-lg" name="mini-bio" id="profile-form-bio" rows="3" data-i18n="[placeholder]aren.login.placeholder-bio"></textarea>
                     </div>
                 </div>
 
@@ -153,7 +226,7 @@
                     </div>
                 </div>
 
-                <div class="col-md-6" id="registration_grade">
+                <div class="col-md" id="registration_grade">
                     <div class="form-row mb-4">
                         <img src="assets/media/green_user.png" class="icon-label">
                         <label for="profile-form-grade" class="tutorial-label" data-i18n="[html]manager.profil.grade"></label>
@@ -167,7 +240,7 @@
                     </div>
                 </div>
 
-                <div class="col-md-6" id="registration_subject">
+                <div class="col-md" id="registration_subject">
                     <div class="form-row mb-4">
                         <img src="assets/media/green_user.png" class="icon-label">
                         <label for="profile-form-subject" class="tutorial-label" data-i18n="[html]manager.profil.subject"></label>
@@ -176,7 +249,7 @@
                     </div>
                 </div>
 
-                <div class="col-md-6">
+                <div class="col-md">
                     <div>
                         <img src="assets/media/green_lock.png" class="icon-label">
                         <label for="profile-form-password" class="tutorial-label" data-i18n="[html]manager.profil.password"></label>
@@ -188,7 +261,7 @@
                     </div>
                 </div>
 
-                <div class="col-md-6">
+                <div class="col-md">
                     <img src="assets/media/green_lock.png" class="icon-label">
                     <label for="profile-form-confirm-password" class="tutorial-label" data-i18n="[html]manager.profil.confirmPassword"></label>
                     <div class="form-inline">
@@ -197,9 +270,9 @@
                     </div>
                 </div>
             </div>
-
+            <p data-i18n="[html]manager.account.registration.disclaimerVittascience"></p>
             <p data-i18n="[html]manager.account.registration.mandatory"></p>
-            <p data-i18n="[html]manager.account.registration.cguOpenSteam"></p>
+            <p data-i18n="[html]manager.account.registration.cguVittascience"></p>
 
             <div class="form-check">
                 <input class="form-check-input" type="checkbox" id="cb_name_public">
@@ -242,22 +315,26 @@
 
 <div id="login-container" style="display:none;position:relative;">
     <div class="login-form" id="signupin-div">
-        <h1><span class="fa fa-sign-in-alt"></span><span data-i18n="login_popup.title"></span> <button onclick="navigateLight('login-choice')" class="btn close-login-classroom"><i class="fas fa-times"></i></button></h1>
+        <h1 class="font-weight-bold c-text-primary"><span class="fa fa-sign-in-alt"></span> <span data-i18n="login_popup.title"></span></h1>
+        <button onclick="navigateLight('login-choice')" class="btn close-login-classroom"><i class="fas fa-times"></i></button>
 
         <p data-i18n="login_popup.details"></p>
         <p><a data-i18n="login-page.createAccount" href='#' onclick="displaySignupClass();"></a></p>
         <div id="info-div">
 
         </div>
-        <form id="login-form">
-            <label for="login-mail-input">
-                <span class="fa fa-at"></span> <span data-i18n="login_popup.form.addressmail"></span><span class="mandatory">*</span>
-            </label>
+        <form id="login-form" class="c-primary-form">
+
+            <div>
+                <img src="assets/media/green_user.png" class="icon-label">
+                <label for="login-mail-input" data-i18n="login_popup.form.addressmail"></label>
+            </div>
             <input name='mail' style="margin-bottom:5px;" data-i18n="[placeholder]login_popup.form.addressmail_placeholder" class="form-control" type="email" id="login-mail-input">
 
-            <label for="login-pwd-input">
-                <span class="fa fa-key"></span> <span data-i18n="login_popup.form.password"></span><span class="mandatory">*</span>
-            </label>
+            <div>
+                <img src="assets/media/green_lock.png" class="icon-label">
+                <label for="login-pwd-input" data-i18n="login_popup.form.password"></label>
+            </div>
             <input name='password' data-i18n="[placeholder]login_popup.form.password_placeholder" class="form-control" type="password" id="login-pwd-input">
 
             <input type="text" name="za78e-username" autocomplete="off" value="" id="za78e-username" class="za78e-field" placeholder="za78e username" />
@@ -266,7 +343,7 @@
             <div>
                 <a class="hint" href="/classroom/password_manager.php" data-i18n="login_popup.form.forgot_password"></a>
             </div>
-            <button type='button' style="margin-top:10px;" onclick="checkLogin();" class="btn c-btn-secondary" id="login-button" data-i18n="login_popup.form.btn_connect"></button>
+            <button type='button' style="margin-top:10px;" onclick="checkLogin();" class="btn c-btn-primary" id="login-button" data-i18n="login_popup.form.btn_connect"></button>
         </form>
     </div>
 </div>
@@ -307,14 +384,6 @@
     </div>
 </div>
 
-<!-- <script>
-    /* INTERACTIVE BLOCK */
-    $("#fake-blockly-input").on("input", (function () {
-        var text = $("#fake-blockly-input").val().trim();
-        $('#fake-code-text').html('\'' + text + '\'');
-        $('#fake-display').html(text);
-    }));
-</script> -->
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous">
 </script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous">
@@ -329,6 +398,7 @@
 <script src="assets/js/scripts/dashboardActivities.js"></script>
 <script src="assets/js/scripts/displayPanel.js"></script>
 <script src="assets/js/lib/EasyAutocomplete-1.3.5/jquery.easy-autocomplete.min.js"></script>
+<script src="assets/js/scripts/signup.js"></script>
 <script src="assets/js/main/Loader.js"></script>
 <script src="assets/js/main/UIManager.js"></script>
 <script src="assets/js/main/User.js"></script>
@@ -338,11 +408,12 @@
 <script src="assets/js/utils/registrationTemplate.js"></script>
 <script src="assets/js/scripts/buttons.js"></script>
 <script src="assets/js/scripts/login.js"></script>
+<script src="assets/plugins/js/add-loginpage-faq-strings.js"></script>
 <script>
     UIManager.init().then((resolve) => {
         UserManager.init().then((resolve) => {
             Main.init().then((resolve) => {
-                loginFaqNeutral();
+                loginFaq();
                 /* FAQ BOXES */
                 var headers = document.getElementsByClassName("faq-box-header");
                 $(headers).rotate({
