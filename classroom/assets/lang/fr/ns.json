@@ -1117,7 +1117,7 @@
 			"delete": "Supprimer un groupe",
 			"deleteIntention": "Vous vous apprêtez à supprimer le groupe : <span id=\"md_group\"></span>",
 			"update": "Modifier un groupe",
-			"academy": "Académie",
+			"academy": "Collectivité",
 			"join": {
 				"firstVisit": "Première visite ?",
 				"signin": "Se connecter",
