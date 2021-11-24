@@ -1,3 +1,26 @@
+# aren+ OpenStreamLMS Fork
+
+## How to merge changes
+
+### On OpenSteamLMS
+
+1. Pull changes from `main`
+2. Check if the files you've changed are present in any of the plugins
+3. Run `gulp build`
+ 
+### On aren+
+
+1. Grab the `classroom` folder from OpenSTEAM-LMS (and/or other changed files) and put it/them inside the STEAMS-LMS folder.  
+2. Update files in the plugins (if needed) -> Right-click, Select For Compare, etc.
+3. Run `gulp build`
+4. Make a PR with your changes
+5. Commit said changes onto the `main` branch
+
+<details>
+<summary>Original README.md</summary>
+
+
+
 # French
 OpenSTEAM LMS est un module de gestion de classe (LMS en anglais) co-développé par Vittascience et Cabrilog, qui vous est proposé sur les plateformes [vittascience.com](https://fr.vittascience.com) et [cabri.com](https://cabri.com/fr/) sous forme de service Cloud.
 
@@ -212,3 +235,5 @@ The current repository only contains front elements of the LMS. The back end is 
 - [vutils](https://github.com/vittascience/vutils) : current version (1.2.1)
 - vinterfaces (not public yet) : current version (1.2.1)
 - vlearn (not public yet) : current version (1.2.3)
+
+</details>
