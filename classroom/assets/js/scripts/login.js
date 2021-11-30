@@ -2,6 +2,7 @@ const AllViews = ['#classroom-login-container', '#login-container', '#classroom-
 
 // Global param who check if it's the first request of class
 let firstRequestClass = true;
+let firstRegisterLoad = true;
 function onUrlChange() {
     // Close all views
     closeAllViews();
@@ -15,7 +16,10 @@ function onUrlChange() {
                 $('#login-container').show();
                 break;
             case 'register':
-                createRegistrationTemplateForLogin();
+                // if the register form is already setup, we don't need to do it again and we can show it already
+                if (!firstRegisterLoad) {
+                    $('#classroom-register-container').show();
+                }
                 break;
             default:
                 $('#home-container').show();
@@ -285,7 +289,6 @@ $('#connect-nongar-user').click(function () {
         if (response == true) {
             window.open('/classroom/login.php', "_self")
         } else {
-            console.log("error")
             $('.mismatched-login').show()
         }
     }).catch(error => {});
@@ -301,7 +304,6 @@ $(document).on('keydown', function (e) {
             if (response == true) {
                 window.open('/classroom/login.php', "_self")
             } else {
-                console.log("error")
                 $('.mismatched-login').show()
             }
         }).catch(error => {});
@@ -334,7 +336,6 @@ if (document.getElementById('create-teacher-account-form')) {
     document.getElementById('create-teacher-account-form').addEventListener('submit', (e) => {
         e.preventDefault();
         let data = new FormData(e.target);
-        console.log(e.target);
         if (teacherAccountCreateFormCheck(data)) {
             createTeacherAccount(data).then((response) => {
                 if (response.isUserAdded) {
@@ -520,6 +521,7 @@ function createSubjectSelectTeacherForm(array) {
 
 function createRegistrationTemplateForLogin() {
     getRegistrationTemplate().then((res) => {
+
         if (res.USER_USERNAME == "false") {
             $('#registration_pseudo').remove();
         }
@@ -537,15 +539,11 @@ function createRegistrationTemplateForLogin() {
             $('#registration_grade').remove();
             $('#registration_school').remove();
         }
-        setTimeout(() => {
-            if ($_GET('p') == "register") {
-                $('#classroom-register-container').show();
-            }
-        }, 500);
+        
+        if ($_GET('p') == "register") {
+            $('#classroom-register-container').show();
+        }
+    
     })
 }
-
-setTimeout(() => {
-    createSubjectSelectTeacherForm(getSubjects(0));
-}, 2000);
 

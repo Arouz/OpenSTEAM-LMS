@@ -464,7 +464,7 @@
     <div id="classroom-panel-legend">
         <div id="add-student-container" class="ml-3"></div>
         <div id="export-class-container" class="ml-3"></div>
-        
+
         <div id="legend-container">
             <ul class="row legend" style="list-style:none;">
                 <li class="ml-3">
@@ -1164,6 +1164,7 @@
 <script src="assets/js/utils/text.js"></script>
 <script src="assets/js/lib/rotate.js"></script>
 <script src="assets/js/utils/bbcodeToHtml.js"></script>
+<script src="assets/js/utils/registrationTemplate.js"></script>
 <script src="assets/js/scripts/disconnect.js"></script>
 <script src="assets/js/scripts/dashboardActivities.js"></script>
 <script src="assets/js/scripts/teacherActivities.js"></script>
@@ -1226,6 +1227,7 @@
                                 let currentTask = (onEnd) => {
                                     mainGroupAdmin.init().then((resolve) => {
                                         mainManager.init().then((resolve) => {
+                                            createRegistrationTemplate();
                                             onEnd();
                                         })
                                     })
