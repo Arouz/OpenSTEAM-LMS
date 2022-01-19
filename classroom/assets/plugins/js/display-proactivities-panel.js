@@ -9,7 +9,8 @@ function loadCustomProPanelTexts() {
                 i18next.addResourceBundle('fr', 'translation', {
                     "aren": {
                         "ids": {
-                            "classroom-dashboard-proactivities-panel-teacher": "Mes formations"
+                            "classroom-dashboard-proactivities-panel-teacher": "Mes formations",
+                            "select-proactivity-title": "Sélectionnez une formation"
                         }
                     }
                 });
@@ -20,7 +21,8 @@ function loadCustomProPanelTexts() {
                 i18next.addResourceBundle('en', 'translation', {
                     "aren": {
                         "ids": {
-                            "classroom-dashboard-proactivities-panel-teacher": "My courses"
+                            "classroom-dashboard-proactivities-panel-teacher": "My courses",
+                            "select-proactivity-title": "Select a course"
                         }
                     }
                 });
@@ -35,26 +37,40 @@ function loadCustomProPanelTexts() {
         // Sections to format
         $('#classroom-dashboard-sidebar-teacher').localize();
 
+        // Loading Proactivities panel
+        loadCustomProActivitiesPanel(proActivities);
+
     } else {
         setTimeout(loadCustomProPanelTexts, 100);
     }
+    
+    
 }
 
 let proActivities = [{
         "name": "Cadre21",
         "image": "./assets/plugins/images/logo-cadre21.png",
-        "link": "https://www.cadre21.org/inscription/"
+        "link": "https://www.cadre21.org/inscription/",
+        "color": "#D7DF21"
+    },
+    {
+        "name": "M@gistère",
+        "image": "./assets/plugins/images/logo-magistere.svg",
+        "link": "https://magistere.education.fr/",
+        "color": "#0095DB"
     }
-
 ];
 
 function loadCustomProActivitiesPanel(activities) {
+    $('#proactivity-grid').append(`<div class="proactivity-head" data-i18n="aren.ids.select-proactivity-title">
+    </div>`);
+
     activities.forEach(proActivity => {
         let proActivityItem = $( /*html*/
-            `<div class="proactivity-card" link="${proActivity.link}">
-                <img class="proactivity-card-img" src="${proActivity.image}" alt="${proActivity.name}">
-                <span class="proactivity-card-title mt-2">${proActivity.name}</span>
-              </div>`);
+            `<div class="proactivity-card" link="${proActivity.link}" style="--border-color:${proActivity.color};">
+            <img class="proactivity-card-img" src="${proActivity.image}" alt="${proActivity.name}">
+            <span class="proactivity-card-title mt-2">${proActivity.name}</span>
+            </div>`);
 
         proActivityItem.click(function () {
             $('#current-proactivity > iframe').remove();
@@ -63,11 +79,9 @@ function loadCustomProActivitiesPanel(activities) {
             $('#proactivity-grid').hide();
 
         });
-        $('#proactivity-grid').append(proActivityItem);
-
+        $('#proactivity-grid').append(proActivityItem)
+        $('#proactivity-grid').localize();
     });
-
-    
 }
 
 function proActivityReturn() {
@@ -75,6 +89,4 @@ function proActivityReturn() {
     $('#proactivity-grid').show();
 };
 
-
-loadCustomProPanelTexts();
-loadCustomProActivitiesPanel(proActivities);
+loadCustomProPanelTexts()

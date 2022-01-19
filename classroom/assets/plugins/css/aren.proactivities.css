@@ -1,11 +1,24 @@
 #proactivity-grid {
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-between;
+    justify-content: flex-start;
 
 }
 
+#proactivity-grid .proactivity-head {
+    width: 200px;
+    height: 200px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+    margin: 1em 0.5em;
+}
+
 #proactivity-grid .proactivity-card {
+    --border-color: var(--classroom-text-2);
 
     border-radius: 2em;
     text-align: center;
@@ -14,17 +27,19 @@
     justify-content: center;
     align-items: center;
     box-shadow: 0px 0px 10px 0px var(--classroom-shadow-1);
-    overflow: overlay;
+    padding: 1em;
     width: 200px;
     height: 200px;
     margin: 1em 2em;
     cursor: pointer;
+    border: 2px solid transparent;
+    transition: all 0.3s ease;
 
+    
 }
 
-#proactivity-grid .proactivity-card .proactivity-card-title {
-    font-weight: 600;
-    font-size: 1.1em;
+#proactivity-grid .proactivity-card:hover {
+    border-color: var(--border-color);
 }
 
 #current-proactivity {
