@@ -601,7 +601,9 @@ function loginFaq() {
     }
 }
 
-loadLoginPageFAQStrings();
+$(document).ready(function () {
+    loadLoginPageFAQStrings();
+});
 
 
 // Changing the classroom_dashboard_help_panel method in DisplayPanel

@@ -601,8 +601,10 @@ function loginFaq() {
     }
 }
 
-loadLoginPageFAQStrings();
-
+// on page load 
+$(document).ready(function () {
+    loadLoginPageFAQStrings();
+});
 
 // Changing the classroom_dashboard_help_panel method in DisplayPanel
 DisplayPanel.prototype.classroom_dashboard_help_panel = function () {
