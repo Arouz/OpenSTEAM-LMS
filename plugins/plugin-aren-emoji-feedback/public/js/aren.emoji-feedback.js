@@ -41,9 +41,10 @@ eventAddEmojiBtn = () => {
 	}
 }
 
-const ogLoadActivity = loadActivity;
+const ogLoadActivityForTeacher = loadActivityForTeacher;
 
-loadActivity = function (isDoable) {
-	ogLoadActivity(isDoable)
+loadActivityForTeacher = function () {
+	ogLoadActivityForTeacher()
 	eventAddEmojiBtn();
 };
+
