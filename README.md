@@ -15,7 +15,10 @@
 4. Make a PR with your changes
 5. Commit said changes onto the `main` branch
 
-NOTE: Make sure to keep the CGU, legal, and privacy pages when overriding the folders.
+#### Notes
+
+Make sure to keep the CGU, legal, and privacy pages when overriding the folders.
+Also, check the composer.json file for version incompatibilities.
 
 <details>
 <summary>Original README.md</summary>
