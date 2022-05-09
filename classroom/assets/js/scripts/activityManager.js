@@ -388,6 +388,7 @@ function activitiesCreation(apps) {
     });
     
     $('#activity-creation-grid').html(htmlContent);
+    console.log(htmlContent);
     $('#activity-creation-grid').localize();
 }
 

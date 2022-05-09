@@ -14,20 +14,27 @@ const addEmojiBtn = () => {
 
 	//Adding the script for the emoji picker
 	$('head').append('<script type="module" src="https://cdn.jsdelivr.net/npm/emoji-picker-element@^1/index.js"></script>');
+
 	document.querySelector('emoji-picker').addEventListener('emoji-click', event => {
 		$('#commentary-textarea').val($('#commentary-textarea').val() + event.detail.emoji.unicode)
 		tooltip.classList.toggle('shown')
 	});
 
 	//Making the emoji button hide/show the emoji picker
+	$('#activity-correction').css('overflow', 'unset');
+
+	const body = document.querySelector('#classroom-dashboard-content');
 	const button = document.querySelector('#emoji-btn')
 	const tooltip = document.querySelector('#emoji-picker-container')
 	var popper = new Popper(button, tooltip, {
-		placement: 'auto'
+		placement: 'top'
 	});
 
 	$('#emoji-btn').click(function () {
 		tooltip.classList.toggle('shown')
+
+		$( body ).scrollLeft( 300 );
+
 	});
 }
 

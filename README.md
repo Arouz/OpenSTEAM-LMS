@@ -18,7 +18,7 @@
 #### Notes
 
 Make sure to keep the CGU, legal, and privacy pages when overriding the folders.
-Also, check the composer.json file for version incompatibilities.
+Also, check the composer.json file for version incompatibilities, as well as the Routing folder.
 
 <details>
 <summary>Original README.md</summary>
