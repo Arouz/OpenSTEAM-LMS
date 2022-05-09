@@ -1,6 +1,5 @@
 <div id="classroom-dashboard-classes-panel-teacher" style="display:none;" class="dashboard-block classes-panel">
     <div id="space-groupes"></div>
-    </select>
 
     <div class="buttons-interactions">
         <button id="teacher-new-classroom-btn" class="btn c-btn-outline-primary teacher-new-classe">
@@ -9,7 +8,6 @@
     </div>
 
 
-    </select>
     <div class="list-classes mt-3">
         <div class="class-item">
             <div class="class-card-action action-new-class teacher-new-classe">
@@ -20,30 +18,60 @@
     </div>
 </div>
 
+<div id="classroom-dashboard-form-classe-panel-update" style="display:none;" class="mx-3 dashboard-block classes-panel class-creation-form">
+    <h3 data-i18n="classroom.classes.form.updateTitle"></h3>
+    <form id="classroom-update-form">
+        <div class="form-group part-content-index part-row c-primary-form">
+            <div class="form-row">
+                <label for="classroom-form-name-update" class="tutorial-label" data-i18n="classroom.classes.form.name"></label>
+                <input type="text" id="classroom-form-name-update" class="form-control form-control-lg">
+            </div>
+            <div class="form-row">
+                <label for="classroom-form-school-update" class="tutorial-label" data-i18n="classroom.classes.form.school">
+                </label>
+                <input type="text" id="classroom-form-school-update" class="form-control form-control-lg">
+            </div>   
+        </div>
+        <a href="#" id="update-classroom-student-button" class="new-student-modal btn c-btn-primary m-3"><i class="fas fa-user-plus"></i><span class="ml-1" data-i18n="classroom.classes.form.addStudent"></span></a>
+        <div class="table-students" id="table-students-update">
+            <ul>
+                <li id="no-student-label-update" data-i18n="classroom.classes.form.noStudent"></li>
+            </ul>
+        </div>
+        <div class="c-checkbox mt-2">
+            <input type="checkbox" name="classroom-form-is-blocked" id="classroom-form-is-blocked-update">
+            <label for="classroom-form-is-blocked-update" data-i18n="classroom.classes.form.isBlockedButton"></label>
+        </div>
+        <button type="submit" class="new-classroom-form btn c-btn-primary m-3"><i class="fas fa-save"></i><span class="ml-1" data-i18n="classroom.classes.form.save"></span> </button>
+    </form>
+</div>
+
 <div id="classroom-dashboard-form-classe-panel" style="display:none;" class="mx-3 dashboard-block classes-panel class-creation-form">
     <h3 data-i18n="classroom.classes.form.title"></h3>
-    <div class="form-group part-content-index part-row c-primary-form">
-        <div class="form-row">
-            <label for="classroom-form-name" class="tutorial-label" data-i18n="classroom.classes.form.name"></label>
-            <input type="text" id="classroom-form-name" class="form-control form-control-lg">
+    <form id="classroom-create-form">
+        <div class="form-group part-content-index part-row c-primary-form">
+            <div class="form-row">
+                <label for="classroom-form-name" class="tutorial-label" data-i18n="classroom.classes.form.name"></label>
+                <input type="text" id="classroom-form-name" class="form-control form-control-lg">
+            </div>
+            <div class="form-row">
+                <label for="classroom-form-school" class="tutorial-label" data-i18n="classroom.classes.form.school">
+                </label>
+                <input type="text" id="classroom-form-school" class="form-control form-control-lg">
+            </div>   
         </div>
-        <div class="form-row">
-            <label for="classroom-form-school" class="tutorial-label" data-i18n="classroom.classes.form.school">
-            </label>
-            <input type="text" id="classroom-form-school" class="form-control form-control-lg">
+        <a href="#" id="create-classroom-student-button" class="new-student-modal btn c-btn-primary m-3"><i class="fas fa-user-plus"></i><span class="ml-1" data-i18n="classroom.classes.form.addStudent"></span></a>
+        <div class="table-students" id="table-students">
+            <ul>
+                <li id="no-student-label" data-i18n="classroom.classes.form.noStudent"></li>
+            </ul>
         </div>
-    </div>
-    <button class="new-student-modal c-btn-primary m-3"><i class="fas fa-user-plus"></i><span class="ml-1" data-i18n="classroom.classes.form.addStudent"></span></button>
-    <div id="table-students">
-        <ul>
-            <li id="no-student-label" data-i18n="classroom.classes.form.noStudent"></li>
-        </ul>
-    </div>
-    <div>
-        <input type="checkbox" name="classroom-form-is-blocked" id="classroom-form-is-blocked">
-        <label for="classroom-form-is-blocked" data-i18n="classroom.classes.form.isBlockedButton"></label>
-    </div>
-    <button class="new-classroom-form c-btn-primary m-3"><i class="fas fa-save"></i><span class="ml-1" data-i18n="classroom.classes.form.save"></span> </button>
+        <div class="c-checkbox mt-2">
+            <input type="checkbox" name="classroom-form-is-blocked" id="classroom-form-is-blocked">
+            <label for="classroom-form-is-blocked" data-i18n="classroom.classes.form.isBlockedButton"></label>
+        </div>
+        <button type="submit" class="new-classroom-form btn c-btn-primary m-3"><i class="fas fa-save"></i><span class="ml-1" data-i18n="classroom.classes.form.save"></span> </button>
+    </form>
 </div>
 
 <div id="classroom-table-panel-teacher" style="display:none;" class="dashboard-block classes-panel class-stats-panel">
@@ -71,7 +99,7 @@
 
     </div>
 
-    <div id="classroom-panel-table-container">
+    <div id="classroom-panel-table-container" class="stylized-scrollbar">
         <table>
             <thead>
                 <tr id="header-table-teach">
@@ -90,23 +118,43 @@
         <div id="legend-container">
             <ul class="row legend" style="list-style:none;">
                 <li class="ml-3">
-                    <div class="bilan-legend bilan-3"></div>
+                    <div class="bilan-legend bilan-3">
+                        <div class="monochrome-grade-div"></div>
+                        <div class="monochrome-grade-div"></div>
+                        <div class="monochrome-grade-div"></div>
+                        <div class="monochrome-grade-div"></div>
+                    </div>
                     <span data-i18n="classroom.activities.veryGoodProficiency"></span>
                 </li>
                 <li class="ml-3">
-                    <div class="bilan-legend bilan-2"></div>
+                    <div class="bilan-legend bilan-2">
+                        <div class="monochrome-grade-div"></div>
+                        <div class="monochrome-grade-div"></div>
+                        <div class="monochrome-grade-div"></div>
+                        <div class="monochrome-grade-div"></div>
+                    </div>
                     <span data-i18n="classroom.activities.goodProficiency"></span>
                 </li>
                 <li class="ml-3">
-                    <div class="bilan-legend bilan-1"></div>
+                    <div class="bilan-legend bilan-1">
+                        <div class="monochrome-grade-div"></div>
+                        <div class="monochrome-grade-div"></div>
+                        <div class="monochrome-grade-div"></div>
+                        <div class="monochrome-grade-div"></div>
+                    </div>
                     <span data-i18n="classroom.activities.weakProficiency"></span>
                 </li>
                 <li class="ml-3">
-                    <div class="bilan-legend bilan-0"></div>
+                    <div class="bilan-legend bilan-0">
+                        <div class="monochrome-grade-div"></div>
+                        <div class="monochrome-grade-div"></div>
+                        <div class="monochrome-grade-div"></div>
+                        <div class="monochrome-grade-div"></div>
+                    </div>
                     <span data-i18n="classroom.activities.insufficientProficiency"></span>
                 </li>
             </ul>
-            <ul class="row legend" style="list-style:none;">
+            <ul class="row legend" style="list-style:none; align-items: flex-end">
                 <li class="ml-3">
                     <div class="bilan-legend fas fa-pen"></div>
                     <span data-i18n="classroom.activities.todo"></span>
@@ -116,8 +164,18 @@
                     <span data-i18n="classroom.activities.waiting"></span>
                 </li>
 
-                <li class="ml-3">
-                    <input type="checkbox" id="is-anonymised" title="" class="mr-2"><label><span class="text-capitalize mr-2" data-i18n="words.anonymize"></span><i data-i18n="[title]classroom.activities.anonymise" class="fas fa-question-circle"></i> </label>
+                <li class="ml-3 c-checkbox" style="height: 1.6em;">
+                    <input type="checkbox" id="is-monochrome" title="" class="mr-2">
+                    <label for="is-monochrome">
+                        <span class="mr-2">Mode monochrome</span>
+                    </label>
+                </li>
+
+                <li class="ml-3 c-checkbox" style="height: 1.6em;">
+                    <input type="checkbox" id="is-anonymised" title="" class="mr-2">
+                    <label for="is-anonymised">
+                        <span class="text-capitalize mr-2" data-i18n="words.anonymize"></span><i data-i18n="[title]classroom.activities.anonymise" class="fas fa-question-circle"></i>
+                    </label>
                 </li>
             </ul>
         </div>
