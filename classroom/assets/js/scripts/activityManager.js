@@ -1,7 +1,7 @@
 /**
  * Setup the rich text editor for the activities
  */
- function setTextArea() {
+function setTextArea() {
     let wbbOpt = {
         resize_maxheight:354,
         autoresize:false,
@@ -388,7 +388,6 @@ function activitiesCreation(apps) {
     });
     
     $('#activity-creation-grid').html(htmlContent);
-    console.log(htmlContent);
     $('#activity-creation-grid').localize();
 }
 

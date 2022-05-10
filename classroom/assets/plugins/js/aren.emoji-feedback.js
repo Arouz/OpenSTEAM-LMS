@@ -32,9 +32,8 @@ const addEmojiBtn = () => {
 
 	$('#emoji-btn').click(function () {
 		tooltip.classList.toggle('shown')
-
-		$( body ).scrollLeft( 300 );
-
+		//force scroll to avoid overflow, and force popper repositioning
+		$(body).scrollLeft(100);
 	});
 }
 
@@ -54,4 +53,3 @@ loadActivityForTeacher = function () {
 	ogLoadActivityForTeacher()
 	eventAddEmojiBtn();
 };
-
