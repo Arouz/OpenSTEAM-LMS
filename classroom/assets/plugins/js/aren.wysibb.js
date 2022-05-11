@@ -33,72 +33,62 @@ function arenWysibb() {
 			WBBLANG['en'] = CURLANG = arenLang;
 		}
 
-		console.log(Main.getClassroomManager().wbbOpt);
 		if (Main.getClassroomManager().wbbOpt != undefined) {
 			Main.getClassroomManager().wbbOpt.buttons = ",bold,italic,underline,|,fontcolor,fontsize,|,justifyleft,justifycenter,justifyright,bullist,img,link,|,vittapdf,video,instruction,|,vittaiframe,cabriiframe,|,genialyiframe,gdocsiframe,officeiframe,zoom,answer"
 		}
-		console.log(Main.getClassroomManager().wbbOpt);
 
+		console.log($.wysibb)
 		// Replacing the wysibb.init() method by a custom one
-		
-		let ogWysibb = $.wysibb;
-		$.wysibb = function (txtArea, settings) {
 
-			ogWysibb(txtArea, settings);
-			
-			// Here we change the various bb tags and their behavior
-			this.options.allButtons['instruction'] = {
-				title: CURLANG.instruction,
-				buttonHTML: '<i class="fas fa-book" style="height:27px;width:31px;font-size:20px;text-align:center;padding-top: 5px;"></i>',
-				modal: {
-					title: "Modal title",
-					width: "600px",
-					tabs: [{
-						input: [{
-								param: "HEADER",
-								title: "Entrez le titre (facultatif)",
-							},
-							{
-								param: "CONTENT",
-								title: "Entrez le contenu",
-							}
-						]
-					}]
-				},
-				transform: {
-					'<div class="instruction" header="{HEADER}">{CONTENT}</div>': '[instruction={HEADER}]{CONTENT}[/instruction]',
-					'<div class="instruction">{CONTENT}</div>': '[instruction]{CONTENT}[/instruction]'
-				}
+		Main.getClassroomManager().wbbOpt.allButtons.officeiframe = {
+			title: CURLANG.office,
+			buttonHTML: '<img src="/plugins/plugin-aren-wysibb/public/images/office-icon.svg" height="26" height="26" style="margin-top: 2px;"/>',
+			hotkey: '',
+			modal: {
+				title: CURLANG.modal_office_title,
+				width: "500px",
+				tabs: [{
+					html: "<p>" + CURLANG.inDev + "</p>"
+				}]
 			}
-			/*
-			this.options.allButtons['officeiframe'] = {
-				title: CURLANG.office,
-				buttonHTML: '<img src="/plugins/plugin-aren-wysibb/public/images/office-icon.svg" height="26" height="26" style="margin-top: 2px;"/>',
-				hotkey: '',
-				modal: {
-					title: CURLANG.modal_office_title,
-					width: "500px",
-					tabs: [{
-						html: "<p>" + CURLANG.inDev + "</p>"
-					}]
-				}
-			}
-			this.options.allButtons['zoom'] = {
-				title: CURLANG.zoomLink,
-				buttonHTML: '<img src="/plugins/plugin-aren-wysibb/public/images/zoom-icon.svg" height="26" height="26" style="margin-top: 2px;"/>',
-				hotkey: '',
-				modal: {
-					title: CURLANG.modal_zoom_title,
-					width: "500px",
-					tabs: [{
-						html: "<p>" + CURLANG.inDev + "</p>"
-					}]
-				}
-			}
-			*/
+		};
 
-			console.log(this.options.allButtons);
-		}
+		Main.getClassroomManager().wbbOpt.allButtons.instruction = {
+			title: CURLANG.instruction,
+			buttonHTML: '<i class="fas fa-book" style="height:27px;width:31px;font-size:20px;text-align:center;padding-top: 5px;"></i>',
+			modal: {
+				title: "Modal title",
+				width: "600px",
+				tabs: [{
+					input: [{
+							param: "HEADER",
+							title: "Entrez le titre (facultatif)",
+						},
+						{
+							param: "CONTENT",
+							title: "Entrez le contenu",
+						}
+					]
+				}]
+			},
+			transform: {
+				'<div class="instruction" header="{HEADER}">{CONTENT}</div>': '[instruction={HEADER}]{CONTENT}[/instruction]',
+				'<div class="instruction">{CONTENT}</div>': '[instruction]{CONTENT}[/instruction]'
+			}
+		};
+
+		Main.getClassroomManager().wbbOpt.allButtons.zoom = {
+			title: CURLANG.zoomLink,
+			buttonHTML: '<img src="/plugins/plugin-aren-wysibb/public/images/zoom-icon.svg" height="26" height="26" style="margin-top: 2px;"/>',
+			hotkey: '',
+			modal: {
+				title: CURLANG.modal_zoom_title,
+				width: "500px",
+				tabs: [{
+					html: "<p>" + CURLANG.inDev + "</p>"
+				}]
+			}
+		};
 
 	} catch (error) {
 		console.error("[AREN+] Relaunching WYSIBB plugin. \n", error);
@@ -106,13 +96,15 @@ function arenWysibb() {
 	}
 }
 
-// Launching the plugin as soon as the page is fully loaded
 $(document).ready(function () {
-	arenWysibb();
+	setTimeout(() => {
+		arenWysibb();
+	}, 1500);
 });
 
-// Redeclaring bbcodeToHtml method to add the instruction tag
 const ogBbcodeToHtml = bbcodeToHtml;
+
+
 bbcodeToHtml = function (html) {
 	console.info("using Arèn BBCode parser");
 
