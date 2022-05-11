@@ -33,7 +33,6 @@ function arenWysibb() {
 			WBBLANG['en'] = CURLANG = arenLang;
 		}
 
-		/*
 		// Replacing the wysibb.init() method by a custom one
 		$.wysibb.prototype.init = function () {
 
@@ -86,9 +85,7 @@ function arenWysibb() {
 				}
 			}
 		}
-		*/
 	}
-
 
 	console.log("Wysibb plugin loaded");
 }
