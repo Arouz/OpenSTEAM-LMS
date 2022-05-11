@@ -1,7 +1,7 @@
 function arenWysibb() {
-	if (typeof document.getElementsByClassName('wysibb')[0] == undefined) {
-		setTimeout(arenWysibb, 250);
-	} else {
+	try {
+		console.info("[AREN+] Starting WYSIBB plugin");
+
 		// Adding strings to the string list
 		if (getLangInCookie() == 'fr') {
 			let arenFr = {
@@ -33,9 +33,19 @@ function arenWysibb() {
 			WBBLANG['en'] = CURLANG = arenLang;
 		}
 
-		// Replacing the wysibb.init() method by a custom one
-		$.wysibb.prototype.init = function () {
+		console.log(Main.getClassroomManager().wbbOpt);
+		if (Main.getClassroomManager().wbbOpt != undefined) {
+			Main.getClassroomManager().wbbOpt.buttons = ",bold,italic,underline,|,fontcolor,fontsize,|,justifyleft,justifycenter,justifyright,bullist,img,link,|,vittapdf,video,instruction,|,vittaiframe,cabriiframe,|,genialyiframe,gdocsiframe,officeiframe,zoom,answer"
+		}
+		console.log(Main.getClassroomManager().wbbOpt);
 
+		// Replacing the wysibb.init() method by a custom one
+		
+		let ogWysibb = $.wysibb;
+		$.wysibb = function (txtArea, settings) {
+
+			ogWysibb(txtArea, settings);
+			
 			// Here we change the various bb tags and their behavior
 			this.options.allButtons['instruction'] = {
 				title: CURLANG.instruction,
@@ -60,6 +70,7 @@ function arenWysibb() {
 					'<div class="instruction">{CONTENT}</div>': '[instruction]{CONTENT}[/instruction]'
 				}
 			}
+			/*
 			this.options.allButtons['officeiframe'] = {
 				title: CURLANG.office,
 				buttonHTML: '<img src="/plugins/plugin-aren-wysibb/public/images/office-icon.svg" height="26" height="26" style="margin-top: 2px;"/>',
@@ -84,22 +95,24 @@ function arenWysibb() {
 					}]
 				}
 			}
-		}
-	}
+			*/
 
-	console.log("Wysibb plugin loaded");
+			console.log(this.options.allButtons);
+		}
+
+	} catch (error) {
+		console.error("[AREN+] Relaunching WYSIBB plugin. \n", error);
+		setTimeout(arenWysibb, 250);
+	}
 }
 
-
-//	buttons: ",bold,italic,underline,|,fontcolor,fontsize,|,justifyleft,justifycenter,justifyright,bullist,img,link,|,vittapdf,video,instruction,|,vittaiframe,cabriiframe,|,genialyiframe,gdocsiframe,officeiframe,zoom,answer"}
-
+// Launching the plugin as soon as the page is fully loaded
 $(document).ready(function () {
 	arenWysibb();
 });
 
+// Redeclaring bbcodeToHtml method to add the instruction tag
 const ogBbcodeToHtml = bbcodeToHtml;
-
-
 bbcodeToHtml = function (html) {
 	console.info("using Arèn BBCode parser");
 
