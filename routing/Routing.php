@@ -27,12 +27,12 @@ use Interfaces\Controller\ControllerProject;
 use Classroom\Controller\ControllerClassroom;
 use Utils\Exceptions\EntityOperatorException;
 
-/**
- * A modifier pour le namespace superadmin
- */
+
 
 use Classroom\Controller\ControllerGroupAdmin;
 use Classroom\Controller\ControllerSuperAdmin;
+
+use Learn\Controller\ControllerNewActivities;
 
 use Learn\Controller\ControllerCourseLinkCourse;
 use Utils\Exceptions\EntityDataIntegrityException;
@@ -40,6 +40,9 @@ use Classroom\Controller\ControllerActivityLinkUser;
 use Interfaces\Controller\ControllerProjectLinkUser;
 use Classroom\Controller\ControllerClassroomLinkUser;
 
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
 
 $dotenv = Dotenv::createImmutable(__DIR__ . "/../");
 $dotenv->safeLoad();
@@ -103,13 +106,13 @@ try {
                     require_once "../plugins/$singlePlugin/Controller/" . $ControllerToInstanciate . ".php";
 
                     // instanciate the matching controller
-                    $class = "Plugins\\Controller\\" . $ControllerToInstanciate;
+                    $class = "Plugins\\$singlePlugin\\Controller\\" . $ControllerToInstanciate;
                     $controller = new $class($entityManager, $user);
 
                     // return data and exit the foreach loop with a break
                     echo (json_encode($controller->action($action, $_POST)));
                     $log->info($action, OK);
-                    break;
+                    exit;
                 }
             }
         }
@@ -198,6 +201,11 @@ try {
             break;
         case 'groupadmin':
             $controller = new ControllerGroupAdmin($entityManager, $user);
+            echo (json_encode($controller->action($action, $_POST)));
+            $log->info($action, OK);
+            break;
+        case 'newActivities':
+            $controller = new ControllerNewActivities($entityManager, $user);
             echo (json_encode($controller->action($action, $_POST)));
             $log->info($action, OK);
             break;

@@ -1,4 +1,4 @@
-function loadCustomProPanelTexts() {
+function loadArenProPanelTexts() {
     if (i18next && i18next.isInitialized) {
         let currentLang = getCookie('lng');
         if (!currentLang) {
@@ -9,7 +9,7 @@ function loadCustomProPanelTexts() {
                 i18next.addResourceBundle('fr', 'translation', {
                     "aren": {
                         "ids": {
-                            "classroom-dashboard-proactivities-panel-teacher": "Mes formations",
+                            "classroom-dashboard-pro-activities-panel-teacher": "Mes formations",
                             "select-proactivity-title": "Sélectionnez une formation"
                         }
                     }
@@ -21,7 +21,7 @@ function loadCustomProPanelTexts() {
                 i18next.addResourceBundle('en', 'translation', {
                     "aren": {
                         "ids": {
-                            "classroom-dashboard-proactivities-panel-teacher": "My courses",
+                            "classroom-dashboard-pro-activities-panel-teacher": "My courses",
                             "select-proactivity-title": "Select a course"
                         }
                     }
@@ -38,10 +38,10 @@ function loadCustomProPanelTexts() {
         $('#classroom-dashboard-sidebar-teacher').localize();
 
         // Loading Proactivities panel
-        loadCustomProActivitiesPanel(proActivities);
+        loadArenProActivitiesPanel(proActivities);
 
     } else {
-        setTimeout(loadCustomProPanelTexts, 100);
+        setTimeout(loadArenProPanelTexts, 100);
     }
     
     
@@ -61,7 +61,7 @@ let proActivities = [{
     }
 ];
 
-function loadCustomProActivitiesPanel(activities) {
+function loadArenProActivitiesPanel(activities) {
     $('#proactivity-grid').append(`<div class="proactivity-head" data-i18n="aren.ids.select-proactivity-title">
     </div>`);
 
@@ -89,4 +89,4 @@ function proActivityReturn() {
     $('#proactivity-grid').show();
 };
 
-loadCustomProPanelTexts()
+loadArenProPanelTexts()

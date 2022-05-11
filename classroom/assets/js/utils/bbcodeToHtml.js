@@ -1,4 +1,8 @@
 function bbcodeToHtml(html) {
+    // add support for the response who only contains a number
+    if (!(typeof html === 'string' || html instanceof String)) {
+        html = html.toString();
+    }
     //iframes
     html = html.replace(/(\[iframe\])(https:\/\/(fr\.|en\.|)vittascience\.com[a-zA-Z0-9?=;&\/﻿]+)(\[\/iframe\])/gi, "<iframe width='100%' height='500' frameborder='0' allowfullscreen style='border:1px #d6d6d6 solid;' src=\"$2&embed=1&frameid=" + generateRandomString(6) + "\"></iframe>")
     html = html.replace(/(\[iframe\])(http:\/\/51\.178\.95\.45[a-zA-Z0-9?=&\/]+)(\[\/iframe\])/gi, "<iframe width='100%' height='500' frameborder='0' allowfullscreen style='border:1px #d6d6d6 solid;' src=\"$2&embed=1&frameid=" + generateRandomString(6) + "\"></iframe>")
@@ -65,6 +69,11 @@ function bbcodeToHtml(html) {
     //size
     html = html.replace(/\[size\=([0-9]{1,3})]/gi, "<span style='font-size:$1px;'>")
     html = html.replace(/\[\/size\]/gi, "</span>")
+
+    // anwser 
+	html = html.replace(/\[answer\]/gi, "<span class='lms-answer'>");
+	html = html.replace(/\[\/answer\]/gi, "</span>");
+
     return html
 }
 
@@ -79,4 +88,13 @@ function generateRandomString(length = 10) {
 
 function getRandomInt(max) {
     return Math.floor(Math.random() * Math.floor(max));
+}
+
+function IsJsonString(str) {
+    try {
+        JSON.parse(str);
+    } catch (e) {
+        return false;
+    }
+    return true;
 }

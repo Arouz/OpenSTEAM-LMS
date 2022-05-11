@@ -4,9 +4,8 @@
 
 ### On OpenSteamLMS
 
-1. Pull changes from `main`
-2. Check if the files you've changed are present in any of the plugins
-3. Run `gulp build`
+1. Pull changes from `master`
+2. Run `gulp build`
  
 ### On aren+
 
@@ -15,6 +14,11 @@
 3. Run `gulp build`
 4. Make a PR with your changes
 5. Commit said changes onto the `main` branch
+
+#### Notes
+
+Make sure to keep the CGU, legal, and privacy pages when overriding the folders.
+Also, check the composer.json file for version incompatibilities, as well as the Routing folder.
 
 <details>
 <summary>Original README.md</summary>

@@ -58,6 +58,59 @@
     background-image: url("../images/card-quickpi.png");
 }
 
+/* New Thumbnails */ 
+
+.sandbox-card.sandbox-card-fillIn,
+.activity-card.activity-card-fillIn {
+    background-image: url("../images/card-fillIn.png");
+}
+
+.sandbox-card.sandbox-card-free,
+.activity-card.activity-card-free {
+    background-image: url("../images/card-free.png");
+}
+
+.sandbox-card.sandbox-card-dragAndDrop,
+.activity-card.activity-card-dragAndDrop {
+    background-image: url("../images/card-dragAndDrop.png");
+}
+
+.sandbox-card.sandbox-card-quiz,
+.activity-card.activity-card-quiz {
+    background-image: url("../images/card-quiz.png");
+}
+
+.sandbox-card.sandbox-card-reading,
+.activity-card.activity-card-reading {
+    background-image: url("../images/card-reading.png");
+}
+
+
+.sandbox-card.sandbox-card-arduino,
+.activity-card.activity-card-arduino {
+    background-image: url("../images/card-arduino.png");
+}
+
+.sandbox-card.sandbox-card-microbit,
+.activity-card.activity-card-microbit {
+    background-image: url("../images/card-microbit.png");
+}
+
+.sandbox-card.sandbox-card-python,
+.activity-card.activity-card-python {
+    background-image: url("../images/card-python.png");
+}
+
+.sandbox-card.sandbox-card-esp32,
+.activity-card.activity-card-esp32 {
+    background-image: url("../images/card-esp32.png");
+}
+
+.sandbox-card.sandbox-card-quickpi,
+.activity-card.activity-card-quickpi {
+    background-image: url("../images/card-quickpi.png");
+}
+
 /* Form icon label change */
 
 .c-primary-form .icon-label {

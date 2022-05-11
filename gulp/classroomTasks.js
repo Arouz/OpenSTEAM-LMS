@@ -42,6 +42,7 @@ class AutoBuildManager {
             'managerProfilePanel.html',
             'managerAppsPanel.html',
             'managerUsersPanel.html',
+            'newExercicesPanel.html',
             'idePanel.html',
             'home_footer.html',
         ];
@@ -351,9 +352,7 @@ class AutoBuildManager {
                                 views: [],
                                 css: [],
                                 js: [],
-                                images: [],
-                                controllers: [],
-                                entities: []
+                                images: []
                             };
                             this.pluginsList.push(currentPlugin);
                         });
@@ -370,8 +369,6 @@ class AutoBuildManager {
     async loadFilesList() {
         return new Promise(async (resolve, reject) => {
             await this.loadPluginsFilesList('Views', 'views');
-            await this.loadPluginsFilesList('Controller', 'controllers');
-            await this.loadPluginsFilesList('Entities', 'entities');
             await this.loadPluginsFilesList('public/css', 'css');
             await this.loadPluginsFilesList('public/js', 'js');
             await this.loadPluginsFilesList('public/images', 'images');
@@ -405,7 +402,9 @@ class AutoBuildManager {
                 if (files) {
                     try {
                         files.forEach(file => {
-                            this.pluginsList[this.pluginsList.indexOf(plugin)][list].push(file);
+                            if (file != '.gitkeep') {
+                                this.pluginsList[this.pluginsList.indexOf(plugin)][list].push(file);
+                            }
                         });
                         resolve();
                     } catch (error) {
@@ -413,6 +412,7 @@ class AutoBuildManager {
                     }
                 } else {
                     console.error(`Folder ${folder} doesn't exist! Skipping!`);
+                    resolve();
                 }
             });
         }).catch((error) => {
@@ -543,6 +543,7 @@ class AutoBuildManager {
                 'gulp/temp-views/managerProfilePanel.html',
                 'gulp/temp-views/managerAppsPanel.html',
                 'gulp/temp-views/managerUsersPanel.html',
+                'gulp/temp-views/newExercicesPanel.html',
                 'gulp/temp-views/idePanel.html',
                 'gulp/temp-views/home_footer.html',
 
@@ -572,6 +573,7 @@ class AutoBuildManager {
                 'classroom/Views/managerProfilePanel.html',
                 'classroom/Views/managerAppsPanel.html',
                 'classroom/Views/managerUsersPanel.html',
+                'classroom/Views/newExercicesPanel.html',
                 'classroom/Views/idePanel.html',
                 'classroom/Views/home_footer.html',
 
