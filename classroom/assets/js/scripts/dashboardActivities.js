@@ -833,6 +833,11 @@ function manageDisplayDragAndDrop(correction, content, correction_div) {
                 $('#drag-and-drop-fields').append(`<p class="draggable draggable-items drag-drop" id="${e}">${e.trim()}</p>`);
             });
             $('#activity-drag-and-drop-container').show();
+
+            // init dragula if it's not already initialized
+            if (Main.getClassroomManager().dragulaGlobal == false) {
+                Main.getClassroomManager().dragulaGlobal = dragula();
+            }
         
             // Reset the dragula fields
             Main.getClassroomManager().dragulaGlobal.containers = [];

@@ -35,7 +35,7 @@ class ClassroomManager {
             autoresize: false,
             buttons: ",bold,italic,underline|,justifyleft,justifycenter,justifyright,img,link,|,quote,bullist,|,vittaiframe,cabriiframe,vittapdf,video,peertube,vimeo,genialyiframe,gdocsiframe,answer",
         },
-        this.dragulaGlobal = dragula();
+        this.dragulaGlobal = false;
     }
 
     /**
