@@ -113,6 +113,20 @@
 
 /* Form icon label change */
 
-.c-primary-form .icon-label {
+.c-primary-form .icon-label,
+#new-activities-folder,
+.btn-folders {
     filter: hue-rotate(65deg) contrast(0.7) brightness(0.9);
+}
+
+.folder-item {
+    filter: hue-rotate(65deg);
+}
+.folder-item .folder-card-top {
+    filter: hue-rotate(-65deg);
+}
+
+.folder-item .folder-card-top i {
+    color: var(--classroom-primary);
+
 }
