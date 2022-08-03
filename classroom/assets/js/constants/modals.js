@@ -333,13 +333,20 @@ const classroomModals = {
                         <label for="group_name" data-i18n="[html]manager.group.name">Group name</label>
                         <input type="text" class="form-control m-0" id="group_name" data-i18n="[placeholder]manager.group.academy">
                     </div>
+
                     <div class="form-group c-secondary-form">
                         <label for="group_desc" data-i18n="[html]manager.group.description">Group description</label>
                         <textarea rows="2" class="form-control m-0" id="group_desc"></textarea>
                     </div>
+
                     <label for="group_apps_options" data-i18n="manager.group.applications">Application(s) du groupe</label>
+
+                    <div id="group_global_restrictions">
+                    </div>
+
                     <div class="form-group" id="group_apps_options">
                     </div>
+
                     <button class="btn c-btn-secondary" data-i18n="manager.buttons.group.create" onclick="createGroupWithModal()">Create</button>`,
         footer: ``
     },
@@ -361,11 +368,14 @@ const classroomModals = {
                         <label for="upd_group_link" data-i18n="manager.group.link">Group link</label>
                         <input type="text" class="form-control" id="upd_group_link">
                      </div>
+
                     <label for="group_upd_apps_options" data-i18n="manager.group.applications">Application(s) du groupe</label>
                     <div id="group_upd_global_restrictions">
                     </div>
+
                     <div class="form-group" id="group_upd_apps_options">
                     </div>
+
                     <input type="hidden" class="form-control" id="upd_group_id">
                     <button class="btn c-btn-secondary" onclick="updateGroupWithModal()" data-i18n="manager.buttons.group.update">Update</button>`,
         footer: ``
@@ -939,11 +949,6 @@ const classroomModals = {
                                 </div>
                             </div>
                             <div class="form-row mt-1 c-secondary-form">
-                                <div class="col-md">
-                                    <label for="app_update_background_image" data-i18n="manager.table.backgroundImage"></label>
-                                    <input type="text" class="form-control" id="app_update_background_image">
-                                    <img src="" class="app_image_preview" id="app_update_background_image_preview">
-                                </div>
 
                                 <div class="col-md">
                                     <label for="app_update_sort_index" data-i18n="manager.activitiesRestrictions.indexPos">Nombre</label>
@@ -1027,11 +1032,6 @@ const classroomModals = {
                                 </div>
                             </div>
                             <div class="form-row mt-1 c-secondary-form">
-                                <div class="col-md">
-                                    <label for="app_create_background_image" data-i18n="manager.table.backgroundImage">Image</label>
-                                    <input type="text" class="form-control" id="app_create_background_image">
-                                    <img src="" class="app_image_preview" id="app_create_background_image_preview">
-                                </div>
 
                                 <div class="col-md">
                                     <label for="app_create_sort_index" data-i18n="manager.activitiesRestrictions.max">Nombre</label>
@@ -1109,6 +1109,24 @@ const classroomModals = {
                             <div class="w-100 text-center">
                                 <p class="mt-4 mb-1 font-weight-bold" data-i18n="manager.activitiesRestrictions.appRestrictedSubtitle2"> </p>
                                 <p data-i18n="manager.activitiesRestrictions.appRestrictedSubtitle3"> </p>
+                            </div>
+                        </div>
+                    </div>`,
+        footer: ``
+    },
+    'activity-outdated': {
+        selector: '',
+        header: {
+            icon: '',
+            title: 'manager.activitiesRestrictions.appOutDated'
+        },
+        content: `  <div id="activity-restricted">
+                        <div class="container-fluid" id="activity-restricted-content">
+                            <p class="mt-4 mb-1 font-weight-bold" data-i18n="manager.activitiesRestrictions.appOutDatedUL1"> </p>
+                            <p class="mt-4 mb-1" data-i18n="manager.activitiesRestrictions.appOutDatedUL2"> </p>
+                            <hr>
+                            <div class="w-100 text-center">
+                                <p data-i18n="manager.activitiesRestrictions.appOutDatedSubtitle3"> </p>
                             </div>
                         </div>
                     </div>`,
@@ -1262,6 +1280,28 @@ const classroomModals = {
                         </div>
                         <button class="btn c-btn-light mx-auto mt-3 btn-lg" onclick="foldersManager.resetInputs()" data-i18n="manager.buttons.cancel">Annuler</button>
                         <button class="btn c-btn-secondary mx-auto mt-3 btn-lg" onclick="foldersManager.persistGoToSelected()" data-i18n="manager.buttons.validate">Valider</button>
+                    </div>`,
+        footer: ``
+    },
+    'delete-student-modal': {
+        selector: '',
+        header: {
+            icon: '',
+            title: 'classroom.classes.deleteStudent'
+        },
+        content: `  <div id="delete-user-modal">
+                        <div class="col-12">
+                            <input type="hidden" id="student-to-delete-id">
+                            <h3 class="font-weight-bold c-text-red m-auto text-center" data-i18n="classroom.classes.deleteStudentConfirm"></h3>
+                            <div class="text-center c-secondary-form">
+                                <p class="text-center" data-i18n="manager.users.deleteConfirmation">Veuillez écrire "supprimer" dans le champ si dessous pour valider l'action.</p>
+                                <input type="text" name="validation-delete-student" id="validation-delete-student" data-i18n="[placeholder]manager.input.placeholder.delete" placeholder="supprimer">
+                            </div>
+                            <div class="text-center">
+                                <button class="btn c-btn-light mx-auto mt-3 btn-lg" onclick="cancelDeleteStudent()" data-i18n="manager.buttons.cancel">Annuler</button>
+                                <button class="btn c-btn-secondary mx-auto mt-3 btn-lg" onclick="persistDeleteStudent()" data-i18n="manager.buttons.validate">Valider</button>
+                            </div>
+                        </div>
                     </div>`,
         footer: ``
     }
