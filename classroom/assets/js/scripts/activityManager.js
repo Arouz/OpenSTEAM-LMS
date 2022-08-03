@@ -2,12 +2,6 @@
  * Setup the rich text editor for the activities
  */
  function setTextArea() {
-/*     let wbbOpt = {
-        resize_maxheight:354,
-        autoresize:false,
-        buttons: ",bold,italic,underline|,justifyleft,justifycenter,justifyright,img,link,|,quote,bullist,|,vittaiframe,cabriiframe,vittapdf,video,peertube,vimeo,genialyiframe,gdocsiframe,answer",
-    } */
-
     const options = Main.getClassroomManager().wbbOpt;
     // Free 
     $('#free-enonce').wysibb(options);
@@ -30,11 +24,9 @@
 }
 
 // autocorrect modification pas pris en compte
-function launchCustomActivity(activityType, isUpdate = false) {
+function launchCustomActivity(activityType, isUpdate = false, callback = false) {
 
-    //if (document.querySelector('#free-enonce') !== null) {
     setTextArea();
-    //}
 
     const contentForwardButtonElt = document.getElementById('content-forward-button');
     contentForwardButtonElt.style.display = 'inline-block';
@@ -48,7 +40,7 @@ function launchCustomActivity(activityType, isUpdate = false) {
     Main.getClassroomManager()._createActivity.function = "create";
 
     Main.getClassroomManager().isActivitiesRestricted(null, activityType).then((response) => {
-        if (response.Limited == false) {
+        if (response.Limited == false && activityType != "appOutDated") {
             switch(activityType) {
                 case 'free':
                     $("#activity-free").show();
@@ -82,13 +74,18 @@ function launchCustomActivity(activityType, isUpdate = false) {
                     break;
             }
             navigatePanel('classroom-dashboard-classes-new-activity', 'dashboard-activities-teacher');
+            if (callback) callback();
         } else {
-            if (UserManager.getUser().isFromGar) {
-                $('#app-restricted-number').attr('data-i18n-options', `{"activities": "${response.Restrictions[Object.keys(response.Restrictions)[0]]}"}`);
-                pseudoModal.openModal('activity-restricted-gar');
-                $('#app-restricted-number').localize();
-            } else {
-                pseudoModal.openModal('activity-restricted');
+            if (activityType == "appOutDated") {
+                pseudoModal.openModal('activity-outdated');
+            } else if (response.Limited) {
+                if (UserManager.getUser().isFromGar) {
+                    $('#app-restricted-number').attr('data-i18n-options', `{"activities": "${response.Restrictions[Object.keys(response.Restrictions)[0]]}"}`);
+                    pseudoModal.openModal('activity-restricted-gar');
+                    $('#app-restricted-number').localize();
+                } else {
+                    pseudoModal.openModal('activity-restricted');
+                }
             }
         }
     });
@@ -103,6 +100,7 @@ function contentBackward() {
 
 // Get the content
 function contentForward() {
+    
     let isCheckPassed = true;
     if (Main.getClassroomManager()._createActivity.id == 'free') {
         Main.getClassroomManager()._createActivity.content.description = $('#free-content').bbcode();
@@ -133,6 +131,7 @@ function contentForward() {
         displayNotification('#notif-div', "classroom.notif.emptyContent", "error");
     } else {
         navigatePanel('classroom-dashboard-classes-new-activity-title', 'dashboard-proactivities-teacher');
+        ActivityPreviewBeforeCreation(Main.getClassroomManager()._createActivity.id);
     }
 }
 
@@ -147,7 +146,7 @@ function titleBackward() {
 /**
  * Title part
  */
-function titleForward() {
+ function titleForward() {
     Main.getClassroomManager()._createActivity.title = $('#global_title').val();
     $('#activity-title-forward').attr('disabled', true);
     // Check if the title is empty
@@ -160,14 +159,15 @@ function titleForward() {
             content = JSON.stringify(Main.getClassroomManager()._createActivity.content),
             solution = JSON.stringify(Main.getClassroomManager()._createActivity.solution),
             tolerance = Main.getClassroomManager()._createActivity.tolerance,
-            autocorrect = Main.getClassroomManager()._createActivity.autocorrect;
+            autocorrect = Main.getClassroomManager()._createActivity.autocorrect,
+            folder = foldersManager.actualFolder;
 
         if (type == "dragAndDrop" || type == "fillIn" || type == "quiz") {
             autocorrect = true;
         }
 
         if (Main.getClassroomManager()._createActivity.function == "create") {  
-            Main.getClassroomManager().createNewActivity(title, type, content, solution, tolerance, autocorrect).then((response) => {
+            Main.getClassroomManager().createNewActivity(title, type, content, solution, tolerance, autocorrect, folder).then((response) => {
                 if (response.success == true) {
                     Main.getClassroomManager()._lastCreatedActivity = response.id;
                     displayNotification('#notif-div', "classroom.notif.activityCreated", "success", `'{"activityTitle": "${title}"}'`);
@@ -187,8 +187,9 @@ function titleForward() {
                 }
             });
         }
-        $('#activity-title-forward').attr('disabled', false);
     }
+    $('#activity-title-forward').attr('disabled', false);
+    document.querySelector('#preview-activity-content').innerHTML = '';
 }
 
 
@@ -214,7 +215,7 @@ function validateActivity(correction) {
             dragAndDropValidateActivity(correction);
             break;
         default:
-            defaultProcessValidateActivity()
+            defaultProcessValidateActivity();
             break;
     }
 }
@@ -292,6 +293,8 @@ function responseManager(response = null, type = null) {
         if (response.hasOwnProperty("message")) {
             if (response.message == "activitySaved") {
                 displayNotification('#notif-div', "classroom.activities.saved", "success");
+            } else if (response.message == "emptyAnswer") {
+                displayNotification('#notif-div', "classroom.activities.emptyAnswer", "error");
             }
         } else if (response.hasOwnProperty("badResponse")) {
             saveActivitiesResponseManager(type, response);
@@ -305,6 +308,7 @@ function responseManager(response = null, type = null) {
 
 function saveActivitiesResponseManager(activityType = null, response = null) {
     if (activityType == 'fill-in') {
+        displayNotification('#notif-div', "classroom.activities.wrongAnswerLarge", "error");
         if (response.hasOwnProperty("hint")) {
             if (response.hint != null && response.hint != "") {
                 $("#activity-hint-container").show();
@@ -321,6 +325,7 @@ function saveActivitiesResponseManager(activityType = null, response = null) {
             }
         }
     } else if (activityType == 'drag-and-drop') {
+        displayNotification('#notif-div', "classroom.activities.wrongAnswerLarge", "error");
         for (let i = 0; i < $(`span[id^="dz-"]`).length; i++) {
             $('#dz-' + i).css("border","1px solid var(--correction-3)");
         }
@@ -336,6 +341,7 @@ function saveActivitiesResponseManager(activityType = null, response = null) {
             }
         }
     } else if (activityType == 'quiz') {
+        displayNotification('#notif-div', "classroom.activities.wrongAnswerLarge", "error");
         for (let i = 1; i < $(`input[id^="student-quiz-suggestion-"]`).length+1; i++) {
             $('#student-quiz-suggestion-' + i).parent().addClass('quiz-answer-correct');
         }
@@ -369,6 +375,12 @@ function activitiesCreation(apps) {
     let htmlContent = `<div class="app-head" data-i18n="classroom.activities.applist.selectApp"></div>`;
     apps.forEach(app => {
 
+        let outDated = false;
+        if (app.hasOwnProperty("outDated")) {
+            outDated = app.outDated;
+            console.log(app.name)
+        }
+
         let nameField = "";
         if (i18next.t(titleRoad+app.name) != titleRoad+app.name) {
             nameField = `<h3 class="app-card-title mt-2" data-i18n="${titleRoad+app.name}"></h3>`;
@@ -387,7 +399,14 @@ function activitiesCreation(apps) {
             descriptionField = `<p class="app-card-description">${app.description}</p>`;
         }
         
+
+
         let restrict = app.name != "" ? `launchCustomActivity('${app.name}')` : `launchCustomActivity('custom')`;
+
+        if (outDated) {
+            restrict = `launchCustomActivity('appOutDated')`;
+        }
+
         htmlContent+= `<div class="app-card" style="--border-color:${app.color};" onclick="${restrict}">
             <img class="app-card-img" src="${app.image}" alt="${app.name}">
             ${nameField}
@@ -429,9 +448,17 @@ function goBackToActivities() {
  */
 
 $('#fill-in-add-inputs').click(() => {
-    $('#fill-in-content').bbcode();
-    $('#fill-in-content').htmlcode($('#fill-in-content').htmlcode() + `<span class="lms-answer">réponse</span> \&nbsp `);
+    if ($("#fill-in-content").getSelectText() != "") {
+        $('#fill-in-content').bbcode();
+        replaceSelectionWithHtml(`<span class="lms-answer">${$("#fill-in-content").getSelectText()}</span>\&nbsp`)
+        let newText = $('#fill-in-content').htmlcode();
+        $('#fill-in-content').htmlcode(newText);
+    } else {
+        $('#fill-in-content').bbcode();
+        $('#fill-in-content').htmlcode($('#fill-in-content').htmlcode() + `\&nbsp;<span class="lms-answer">\&nbsp;réponse\&nbsp;</span>\&nbsp`);
+    }
 });
+
 
 function parseFillInFieldsAndSaveThem() {
     
@@ -443,6 +470,7 @@ function parseFillInFieldsAndSaveThem() {
     Main.getClassroomManager()._createActivity.content.fillInFields.contentForTeacher = $('#fill-in-content').bbcode();
 
     let response = $('#fill-in-content').bbcode().match(/\[answer\](.*?)\[\/answer\]/gi).map(match => match.replace(/\[answer\](.*?)\[\/answer\]/gi, "$1"));
+
     let contentForStudent = $('#fill-in-content').bbcode();
     response.forEach((e, i) => {
         contentForStudent = contentForStudent.replace(`[answer]${e}[/answer]`, `﻿`);
@@ -450,6 +478,10 @@ function parseFillInFieldsAndSaveThem() {
             response[i] = e.split('&&').map(e => e.trim()).join(',');
         }
     })
+
+    for (let index = 0; index < response.length; index++) {
+        response[index] = response[index].trim();
+    }
 
     if ($('#fill-in-states').bbcode() != '') {
         Main.getClassroomManager()._createActivity.content.states = $('#fill-in-states').bbcode();
@@ -461,6 +493,7 @@ function parseFillInFieldsAndSaveThem() {
     Main.getClassroomManager()._createActivity.autocorrect = $('#fill-in-autocorrect').is(":checked");
     Main.getClassroomManager()._createActivity.content.hint = $('#fill-in-hint').val();
 
+
     Main.getClassroomManager()._createActivity.solution = response;
     Main.getClassroomManager()._createActivity.content.fillInFields.contentForStudent = contentForStudent;
 
@@ -471,8 +504,15 @@ function parseFillInFieldsAndSaveThem() {
 }
 
 $('#dragAndDrop-add-inputs').click(() => {
-    $('#drag-and-drop-content').bbcode()
-    $('#drag-and-drop-content').htmlcode($('#drag-and-drop-content').htmlcode() + `<span class="lms-answer">réponse</span> \&nbsp`);
+    if ($("#drag-and-drop-content").getSelectText() != "") {
+        $('#drag-and-drop-content').bbcode();
+        replaceSelectionWithHtml(`<span class="lms-answer">${$("#drag-and-drop-content").getSelectText()}</span>\&nbsp`);
+        let newText = $('#drag-and-drop-content').htmlcode();
+        $('#drag-and-drop-content').htmlcode(newText);
+    } else {
+        $('#drag-and-drop-content').bbcode()
+        $('#drag-and-drop-content').htmlcode($('#drag-and-drop-content').htmlcode() + `\&nbsp;<span class="lms-answer">\&nbsp;réponse\&nbsp;</span>\&nbsp;`);
+    }
 });
 
 
@@ -485,12 +525,15 @@ function parseDragAndDropFieldsAndSaveThem() {
     
     Main.getClassroomManager()._createActivity.content.dragAndDropFields.contentForTeacher = $('#drag-and-drop-content').bbcode();
     
-    let response = $('#drag-and-drop-content').bbcode().match(/\[answer\](.*?)\[\/answer\]/gi).map(match => match.replace(/\[answer\](.*?)\[\/answer\]/gi, "$1"));
+    let responseDD = $('#drag-and-drop-content').bbcode().match(/\[answer\](.*?)\[\/answer\]/gi).map(match => match.replace(/\[answer\](.*?)\[\/answer\]/gi, "$1"));
     let contentForStudent = $('#drag-and-drop-content').bbcode();
-    response.forEach((e, i) => {
+
+
+    responseDD.forEach((e, i) => {
         contentForStudent = contentForStudent.replace(`[answer]${e}[/answer]`, `﻿`);
+        responseDD[i] = e.trim();
         if (e.includes('&&')) {
-            response[i] = e.split('&&').map(e => e.trim()).join(',');
+            responseDD[i] = e.split('&&').map(e => e.trim()).join(',');
         }
     })
 
@@ -503,7 +546,8 @@ function parseDragAndDropFieldsAndSaveThem() {
     Main.getClassroomManager()._createActivity.autocorrect = $('#drag-and-drop-autocorrect').is(":checked");
     Main.getClassroomManager()._createActivity.content.hint = $('#drag-and-drop-hint').val();
 
-    Main.getClassroomManager()._createActivity.solution = response;
+
+    Main.getClassroomManager()._createActivity.solution = responseDD;
     Main.getClassroomManager()._createActivity.content.dragAndDropFields.contentForStudent = contentForStudent;
 
     if (Main.getClassroomManager()._createActivity.content.dragAndDropFields.contentForTeacher == "") {
@@ -630,8 +674,8 @@ function launchLtiDeepLinkCreate(type, isUpdate) {
     document.forms["contentitem_request_form"].submit();
 }
 
-function launchLtiResource(activityId, activityType, activityContent, isStudentLaunch = false, studentResourceUrl = false) {
-    document.querySelector('#activity-content').innerHTML = 
+function launchLtiResource(activityId, activityType, activityContent, isStudentLaunch = false, studentResourceUrl = false, activityContentId = "#activity-content") {
+    document.querySelector(activityContentId).innerHTML = 
         `<input id="activity-score" type="text" hidden/>
         <form name="resource_launch_form" action="${_PATH}lti/ltilaunch.php" method="post" target="lti_student_iframe">
             <input type="hidden" id="application_type" name="application_type" value="${activityType}">
@@ -680,3 +724,128 @@ $('body').on('click', '#fill-in-tolerance-decrease', function () {
     }
 })
 
+
+function ActivityPreviewBeforeCreation(type) {
+
+    $('#activity-preview-div').hide();
+
+    const $title = $('#preview-title'),
+        $states = $('#preview-states'),
+        $statesText = $('#preview-activity-states'),
+        $content = $('#preview-content'),
+        $contentText = $('#preview-activity-content'),
+        $bbcodeContent = $('#preview-content-bbcode'),
+        $dragAndDrop = $('#preview-activity-drag-and-drop-container'),
+        $contentbbcode = $('#preview-activity-bbcode-content'),
+        ActivityPreview = Main.getClassroomManager()._createActivity,
+        wbbptions = Main.getClassroomManager().wbbOpt;
+
+    resetPreviewViews();
+
+    
+    $title.html(Main.getClassroomManager()._createActivity.title);
+    $statesText.html(bbcodeToHtml(Main.getClassroomManager()._createActivity.content.states));
+    $title.show();
+
+    switch (type) {
+        case "quiz":
+            console.log()
+            $contentText.html(createContentForQuiz(ActivityPreview.content.quiz.contentForStudent, true, false, true));
+            $states.show();
+            $content.show();
+            $('#activity-preview-div').show();
+            break;
+        case "free":
+            $statesText.html(bbcodeToHtml(Main.getClassroomManager()._createActivity.content.description))
+            $contentbbcode.wysibb(wbbptions);
+            $bbcodeContent.show();
+            $states.show();
+            $('#activity-preview-div').show();
+            break;
+        case "fillIn":
+            let studentContent = bbcodeToHtml(ActivityPreview.content.fillInFields.contentForStudent)
+            let nbOccu = studentContent.match(/﻿/g).length;
+            for (let i = 1; i < nbOccu+1; i++) {
+                studentContent = studentContent.replace(`﻿`, `<input type="text" id="student-fill-in-field-${i}-preview" class="answer-student">`);
+            }
+            $contentText.html(studentContent);
+            $states.show();
+            $content.show();
+            $('#activity-preview-div').show();
+            break;
+        case "reading":
+            $contentText.html(bbcodeToHtml(ActivityPreview.content.description));
+            $content.show();
+            $('#activity-preview-div').show();
+            break;
+        case "dragAndDrop":
+            let ContentString = manageDragAndDropText(ActivityPreview.content.dragAndDropFields.contentForStudent, true);
+            $('#preview-drag-and-drop-text').html(`<div>${ContentString}</div>`);
+
+            // Get the response array and shuffle it
+            let choices = shuffleArray(ActivityPreview.solution);
+            
+            choices.forEach(e => {
+                $('#preview-drag-and-drop-fields').append(`<p class="draggable draggable-items drag-drop" id="${e}">${e.trim()}</p>`);
+            });
+        
+            // init dragula if it's not already initialized
+            if (Main.getClassroomManager().dragulaGlobal == false) {
+                Main.getClassroomManager().dragulaGlobal = dragula();
+            }
+
+            // Reset the dragula fields
+            Main.getClassroomManager().dragulaGlobal.containers = [];
+            
+            Main.getClassroomManager().dragulaGlobal = dragula([document.querySelector('#preview-drag-and-drop-fields')]).on('drop', function(el, target, source) {
+                if (target.id != 'preview-drag-and-drop-fields') {
+                    let swap = $(target).find('p').not(el);
+                    swap.length > 0 ? source.append(swap[0]) : null;
+                }
+            });
+
+            $('.dropzone-preview').each((i, e) => {
+                Main.getClassroomManager().dragulaGlobal.containers.push(document.querySelector('#'+e.id));
+            });
+
+            $states.show();
+            $dragAndDrop.show();
+            $('#activity-preview-div').show();
+            break;
+        case "custom":
+            $contentText.html(bbcodeToHtml(ActivityPreview.content.description));
+            $content.show();
+            $('#activity-preview-div').show();
+            break;
+        case "lti-vittascience":
+            launchLtiResource("0000", "lti-vittascience", ActivityPreview.content.description, false, false, "#preview-activity-content");
+            $content.show();
+            $('#activity-preview-div').show();
+            break;
+        default:
+            break;
+    }
+}
+
+$("#global_title").keyup(function() {
+    $("#preview-title").html($("#global_title").val());
+})
+
+function resetPreviewViews() {
+    const Views = [ $('#preview-title'), 
+                    $('#preview-states'), 
+                    $('#preview-content'), 
+                    $('#preview-content-bbcode'), 
+                    $('#preview-activity-drag-and-drop-container')];
+    const ContentViews = [  $('#preview-activity-content'), 
+                            $('#preview-activity-states'), 
+                            $('#preview-activity-bbcode-content'), 
+                            $('#preview-drag-and-drop-text'), 
+                            $('#preview-drag-and-drop-fields')];
+    Views.forEach(e => {
+        e.hide();
+    });
+    ContentViews.forEach(e => {
+        e.html('');
+    });
+}

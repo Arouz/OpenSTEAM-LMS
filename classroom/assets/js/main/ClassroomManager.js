@@ -29,7 +29,7 @@ class ClassroomManager {
         this._idActivityOnAttribution = 0;
         this.setDefaultActivityData();
         this.dragulaGlobal = false;
-        this.displayMode = 'card';
+        this.displayMode = localStorage.getItem('classroomViewMode') != null ? localStorage.getItem('classroomViewMode') : 'card';
         this.wbbOpt = {
             allButtons : {
             },
@@ -199,8 +199,15 @@ class ClassroomManager {
                     type: "POST",
                     url: "/routing/Routing.php?controller=activity&action=get_mine_for_classroom",
                     success: function (response) {
-                        process(container, JSON.parse(response));
-                        onEnd();
+                        Main.getClassroomManager().getAllApps().then(res => {
+                            for (let i = 0; i < res.length; i++) {
+                                if (!foldersManager.icons.hasOwnProperty(res[i].name)) {
+                                    foldersManager.icons[res[i].name] = res[i].image;
+                                }
+                            }
+                            process(container, JSON.parse(response));
+                            onEnd();
+                        });
                     },
                     error: function () {
                         console.log('error')
@@ -1267,7 +1274,7 @@ class ClassroomManager {
     }
 
     // create a new activity
-    createNewActivity($title, $type, $content, $solution, $tolerance, $autocorrect) {
+    createNewActivity($title, $type, $content, $solution, $tolerance, $autocorrect, $folder) {
         return new Promise(function (resolve, reject) {
             $.ajax({
                 type: "POST",
@@ -1278,7 +1285,8 @@ class ClassroomManager {
                     'content' : $content,
                     'solution' : $solution,
                     'tolerance' : $tolerance,
-                    'autocorrect' : $autocorrect
+                    'autocorrect' : $autocorrect,
+                    'folder' : $folder
                 },
                 success: function (response) {
                     resolve(JSON.parse(response));

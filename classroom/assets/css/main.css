@@ -1007,8 +1007,6 @@ button {
 .buttons-interactions {
     display: flex;
     flex-direction: row;
-    margin: 0em 5%;
-
 }
 
 .buttons-interactions button {
@@ -1370,19 +1368,48 @@ h3.section-done {
 */
 
 .folder-card {
-    background-image: url(../media/folders/folder_close.png);
     height: 100%;
     width: 100%;
     background-color: none;
     border-radius: 1.2em;
+    background-color: #F1F1F1;
     background-clip: content-box;
     background-size: cover;
-    color: white;
+    color: var(--classroom-white);
     display: grid;
     grid-auto-flow: row;
     grid-template-rows: auto 1fr auto;
     position: relative; 
 }
+
+.folder-card svg {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    width: 100%;
+    height: 80%;
+    transform: translateY(-50%);
+    opacity: 0;
+}
+
+.list-folder-img-manager {
+    color: #008447;
+    transform: scale(0.6);
+}
+
+.folder-card:not(.folder-open) svg.folder-close-icon {
+    opacity: 1;
+}
+
+.folder-card.folder-open svg.folder-open-icon {
+    opacity: 1;
+}
+
+.folder-open {
+    transform: scale(1.05);
+    transition: transform 0.2s ease-in-out;
+}
+
 
 .folder-card-top {
     display: inline-flex;
@@ -1395,9 +1422,8 @@ h3.section-done {
 
 .folder-card .folder-card-top,
 .folder-card .folder-card-bot {
-    color: var(--classroom-green);
-    padding-top: 1.3em;
-    padding-right: 1.3em;
+    padding: 0.5em;
+    color: #B5B4B4;
     text-align: right;
 }
 
@@ -1438,6 +1464,12 @@ h3.section-done {
 .btn-folders {
     background-color: transparent;
     padding: 0 !important;
+    height: fit-content;
+    align-self: center;
+}
+
+.btn-folders svg {
+    height: 100%;
 }
 
 #folders-seek-tree-content-modal ul,
@@ -1447,11 +1479,7 @@ h3.section-done {
     list-style-type: none;
 }
 
-.folder-open {
-    transform: scale(1.05);
-    transition: transform 0.2s ease-in-out;
-    background-image: url(../media/folders/dossier_open.png);
-}
+
 
 .chevron-breadcrumb {
     margin: 0 0.5em;
@@ -1460,12 +1488,17 @@ h3.section-done {
     align-self: center;
 }
 
+.folder-breadcrumb {
+   color: var(--classroom-gold);
+}
+
 .folder-icons {
     height: 28px;
     margin-bottom: 2px;
 }
 
-.section-facultative-options {
+.section-facultative-options,
+.section-preview-activity {
     background: var(--classroom-background-1);
     box-shadow: 0px 0px 7px 0px var(--classroom-shadow-1);
     border-radius: 1em;
@@ -1473,7 +1506,8 @@ h3.section-done {
     margin: 1em;
 }
 
-.section-header-facultative-options {
+.section-header-facultative-options,
+.section-header-preview-activity {
     display: flex;
     flex-direction: row;
     flex-wrap: nowrap;
@@ -1482,7 +1516,8 @@ h3.section-done {
     user-select: none;
     cursor: pointer;
 }
-.section-title-facultative-options {
+.section-title-facultative-options,
+.section-title-preview-activity {
     text-transform: uppercase;
     font-weight: 600;
     font-size: 1.2em;
@@ -1504,37 +1539,102 @@ h3.section-done {
 .activity-item-list {
     width: 100%;
     height: auto;
-    border-bottom: #e2e2e2 1px solid;
-    margin: 0.5rem 0 0 0;
+    border-bottom: var(--classroom-cell) 1px solid;
+    margin: 0;
+    margin-top: 0.5rem;
 }
 
 .activity-list,
 .folder-list {
-    display: flex;
-    width: inherit;
-    flex-direction: row;
-    align-content: center;
+    display: grid;
+    grid-template-columns: auto 1fr auto;
     align-items: center;
-    justify-content: space-between;
+    width: inherit;
+
+    cursor: pointer;
 }
 
 .container-draggable {
     display: flex;
     width: 100%;
-    height: 48px;
+}
+
+.app_image_preview {
+    border-radius: 4px;
+    padding: 5px;
+    width: 55px;
+}
+
+.list-item-img {
+    width: 55px;
+    height: 55px;
+    border-radius: 4px;
+
+    object-fit: contain;
+    display: flex;
+}
+
+.list-item-no-icon {
+    width: 40px !important;
+    height: 40px !important;
+    margin-right: 10px;
+
+    padding: 1em;
+    border-radius: 50%;
+
+    border: 1px solid var(--classroom-white);
+    background-color: var(--classroom-primary);
+    color: var(--classroom-white);
+    box-shadow: 1px 1px 5px #0005;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    place-self: center center;
+
+    margin: 0 auto;
+    left: -1px;
+    position: relative;
+}
+
+.activity-list .activity-list-center {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+    margin-inline: 0.5rem;
+
+    overflow: hidden;
+}
+
+/* On medium screens we update the list item to have two rows for better content display */
+@media (max-width: 768px) {
+    .activity-list .activity-list-center {
+        flex-direction: column;
+    }
 }
 
 .activity-list-title,
 .folder-list-title {
     font-weight: bold;
+
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
-.activity-list-auto,
-.folder-list-auto {
-    background-color: #008447;
-    border-radius: 1.2em;
+.folder-list-title {
+    margin-inline: 0.5rem;
 }
 
+.activity-list-auto svg {
+    height: 1rem;
+}
+
+.activity-list-options,
+.folder-list-options {
+    color: var(--classroom-text-2);
+}
 
 
 @media (max-width: 768px) {
@@ -1904,6 +2004,7 @@ h3.section-done {
     cursor: pointer;
     text-align: center;
     user-select: none;
+    margin-bottom: 0.5em;
 }
 
 .dropable-items {
@@ -1921,19 +2022,22 @@ h3.section-done {
     display: inline-block;
 }
 
-#drag-and-drop-fields {
+#drag-and-drop-fields,
+.drag-and-drop-fields {
     border: 1px solid var(--classroom-text-0);
     border-radius: 1em;
     padding: 1em;
 }
 
+#preview-drag-and-drop-text>div,
 #drag-and-drop-text>div {
     display: flex;
     flex-wrap: wrap;
     align-items: center;
 }
 
-#drag-and-drop-fields {
+#drag-and-drop-fields,
+.drag-and-drop-fields {
     min-height: 60px;
     display: flex;
     flex-wrap: wrap;
@@ -1953,6 +2057,7 @@ h3.section-done {
     padding: 2px 8px;
     width: fit-content;
     display: inline-block;
+    margin-bottom: 0.5em;
 }
 
 .answer-correct {
@@ -2104,7 +2209,8 @@ h3.section-done {
 
 /* ACTIVITY CORRECTION FORM */
 
-#activity-title {
+#activity-title,
+.activity-title {
     font-weight: 700;
     text-align: center;
 
@@ -2282,8 +2388,12 @@ h3.section-done {
     background-color: var(--classroom-white);
 }
 
-/* ACTIVITY ATTRIBUTION END */
+/* ACTIVITY VIEW */
 
+.activity-content img {
+    max-width: 100%;
+
+}
 
 /* CLASSROOM START */
 
@@ -2983,7 +3093,7 @@ h3.section-done {
 
 /* STUDENT ACTIVITY VIEW */
 
-#warning-text-container {
+#warning-icon-container {
     width: 20px;
     height: 20px;
 
@@ -3006,16 +3116,16 @@ h3.section-done {
     border: 1px solid var(--classroom-cell);
 }
 
-#warning-text-container i {
+#warning-icon-container i {
     width: 100%;
     height: 100%;
 }
 
-#warning-text-container #warning-icon-evaluation {
+#warning-icon-container #warning-icon-evaluation {
     color: var(--classroom-red);
 }
 
-#warning-text-container #warning-icon-no-evaluation {
+#warning-icon-container #warning-icon-no-evaluation {
     color: var(--classroom-green);
 }
 
@@ -3246,9 +3356,19 @@ h3.section-done {
     position: relative;
 }
 
-.app_image_preview {
-    border-radius: 4px;
-    padding: 5px;
-    width: 55px;
+.preview-container {
+    border: 1px solid var(--classroom-primary);
+    border-radius: 1em;
+    padding: 1em;
 }
+
+.preview-container h3 {
+    display: none;
+} 
+
+
+.space-evenly {
+    justify-content: space-evenly;
+}
+
 

@@ -126,6 +126,11 @@ $('body').on('mouseenter mouseleave', '.dropdown-act', function () {
     $(this).find('.fa-cog').toggle()
 })
 
+// avoid modal closing when clicking on the modal
+$(document).on('click', '.dropdown-menu', function (e) {
+    e.stopPropagation();
+});
+
 $('input[type=radio][name=isEval-activity-form]').change(function () {
 
     let id = Main.getClassroomManager()._idActivityOnAttribution,
@@ -261,10 +266,13 @@ function navigatePanel(id, idNav, option = "", interface = '', isOnpopstate = fa
         // Define the last element of the breadcrumb
         if (i == currentBreadcrumbStructure.length - 2) {
             if ($_GET("panel") == "classroom-dashboard-activity-panel") {
-                innerBreadCrumbHtml += `<button class="btn c-btn-outline-primary" onclick="navigatePanel('classroom-dashboard-activities-panel', 'dashboard-activities')"><span data-i18n="[html]classroom.ids.${currentBreadcrumbStructure[i]}">${currentBreadcrumbStructure[i]}</span></button>`;
+                if (UserManager.getUser().isRegular) {
+                    innerBreadCrumbHtml += `<button class="btn c-btn-outline-primary" onclick="navigatePanel('classroom-dashboard-activities-panel-teacher', 'dashboard-activities-teacher')"><span data-i18n="[html]classroom.ids.${currentBreadcrumbStructure[i]}">${currentBreadcrumbStructure[i]}</span></button>`;
+                } else {
+                    innerBreadCrumbHtml += `<button class="btn c-btn-outline-primary" onclick="navigatePanel('classroom-dashboard-activities-panel', 'dashboard-activities')"><span data-i18n="[html]classroom.ids.${currentBreadcrumbStructure[i]}">${currentBreadcrumbStructure[i]}</span></button>`;
+                }
             } else {
                 innerBreadCrumbHtml += `<button class="btn c-btn-outline-primary" onclick="navigatePanel('${currentBreadcrumbStructure[i]}', '${idNav}')"><span data-i18n="[html]classroom.ids.${currentBreadcrumbStructure[i]}">${currentBreadcrumbStructure[i]}</span></button>`;
-                // Define all the elements of the breadcrumb except the last
             }
         } else {
             innerBreadCrumbHtml += `<button class="btn c-btn-outline-primary last" onclick="navigatePanel('${currentBreadcrumbStructure[i]}', '${idNav}')"><span data-i18n="[html]classroom.ids.${currentBreadcrumbStructure[i]}">${currentBreadcrumbStructure[i]}</span><i class="fas fa-chevron-right ml-2"></i></button>`;
@@ -276,6 +284,10 @@ function navigatePanel(id, idNav, option = "", interface = '', isOnpopstate = fa
     $('.tooltip').remove()
     if (typeof Main.leaderline !== 'undefined') Main.leaderline.hide();
     $('[data-toggle="tooltip"]').tooltip()
+
+    if (id == 'classroom-dashboard-activities-panel-teacher' && idNav == 'dashboard-activities-teacher') {
+        foldersManager.goToFolder(foldersManager.actualFolder);
+    }
 }
 
 /**
@@ -334,7 +346,7 @@ function goToActivityPanel() {
 // Add activity modal (Classroom management) -> Resource Bank button
 function goToCreateActivityPanel() {
     Modal.prototype.closeAllModal();
-    navigatePanel('classroom-dashboard-new-activity-panel', 'dashboard-activities-teacher');
+    navigatePanel('classroom-dashboard-proactivities-panel-teacher', 'dashboard-activities-teacher');
 }
 
 //prof-->demoStudent
@@ -598,10 +610,14 @@ $('#dashboard-activities, .activity-panel-link').click(function () {
 
 function defaultProcessValidateActivity() {
     $("#activity-validate").attr("disabled", "disabled");
-    let interface = /\[iframe\].*?vittascience(|.com)\/([a-z0-9]{5,12})\/?/gm.exec(Activity.activity.content)
+    let interface = tryToParse(Activity.activity.content);
+    const vittaIframeRegex = /\[iframe\].*?vittascience(|.com)\/([a-z0-9]{5,12})\/?/gm;
+    interface = interface 
+        ? vittaIframeRegex.exec(interface.description)
+        : false;
     if (interface == undefined || interface == null) {
         correction = 2
-        Main.getClassroomManager().saveStudentActivity(false, false, Activity.id, correction, 3).then(function (activity) {
+        Main.getClassroomManager().saveStudentActivity(false, false, Activity.id, correction, 4).then(function (activity) {
             if (typeof activity.errors != 'undefined') {
                 for (let error in activity.errors) {
 
@@ -617,9 +633,9 @@ function defaultProcessValidateActivity() {
         window.localStorage.classroomActivity = null
     } else if (Activity.autocorrection == false) {
         correction = 1
-        let interface = /\[iframe\].*?vittascience(|.com)\/([a-z0-9]{5,12})\/?/gm.exec(Activity.activity.content)[2]
-        let project = window.localStorage[interface + 'CurrentProject']
-        Main.getClassroomManager().saveStudentActivity(JSON.parse(project), interface, Activity.id).then(function (activity) {
+        const interfaceName = interface[2];
+        let project = window.localStorage[interfaceName + 'CurrentProject']
+        Main.getClassroomManager().saveStudentActivity(JSON.parse(project), interfaceName, Activity.id).then(function (activity) {
             if (typeof activity.errors != 'undefined') {
                 for (let error in activity.errors) {
                     displayNotification('#notif-div', `classroom.notif.${error}`, "error");
@@ -638,26 +654,35 @@ function defaultProcessValidateActivity() {
     }
 }
 
-function saveActivity() {
-    $("#activity-save").attr("disabled", true);
-    correction = 0
-    let interface = /\[iframe\].*?vittascience(|.com)\/([a-z0-9]{5,12})\/?/gm.exec(Activity.activity.content)[2]
-    let project = window.localStorage[interface + 'CurrentProject']
-    Main.getClassroomManager().saveStudentActivity(JSON.parse(project), interface, Activity.id, correction).then(function (activity) {
-        actualizeStudentActivities(activity, correction)
-        $("#activity-save").attr("disabled", false);
-        displayNotification('#notif-div', "classroom.notif.savedProject", "success")
-        Main.getClassroomManager().getStudentActivities(Main.getClassroomManager()).then(() => {
-            let navParam = {
-                "panel": $_GET('panel'),
-                "nav": $_GET('nav'),
-                "option": $_GET('option'),
-                "interface": 'savedActivities'
-            };
-            navigatePanel(navParam.panel, navParam.nav, navParam.option, navParam.interface);
-        });
-    })
-}
+
+/**
+ * @ToBeRemoved unused method
+ * last check Naser July 2022 
+ */
+// function saveActivity() {
+//     $("#activity-save").attr("disabled", true);
+//     correction = 0
+
+//     let parsedActivity = tryToParse(Activity.activity.content);
+//     parsedActivity = parsedActivity ? parsedActivity : Activity.activity.content
+
+//     let interface = /\[iframe\].*?vittascience(|.com)\/([a-z0-9]{5,12})\/?/gm.exec(parsedActivity)[2]
+//     let project = window.localStorage[interface + 'CurrentProject']
+//     Main.getClassroomManager().saveStudentActivity(JSON.parse(project), interface, Activity.id, correction).then(function (activity) {
+//         actualizeStudentActivities(activity, correction)
+//         $("#activity-save").attr("disabled", false);
+//         displayNotification('#notif-div', "classroom.notif.savedProject", "success")
+//         Main.getClassroomManager().getStudentActivities(Main.getClassroomManager()).then(() => {
+//             let navParam = {
+//                 "panel": $_GET('panel'),
+//                 "nav": $_GET('nav'),
+//                 "option": $_GET('option'),
+//                 "interface": 'savedActivities'
+//             };
+//             navigatePanel(navParam.panel, navParam.nav, navParam.option, navParam.interface);
+//         });
+//     })
+// }
 
 //sandbox-->créer une activité
 $('body').on('click', '.sandbox-action-add', function () {
@@ -823,7 +848,7 @@ function classroomsDisplay() {
     });
 }
 
-function teacherActivitiesDisplay(list = Main.getClassroomManager()._myTeacherActivities) {
+function teacherActivitiesDisplay(list = Main.getClassroomManager()._myTeacherActivities, keyword = false, asc = false) {
     // Keep the list sorted
     let sortedList = $("#filter-activity-select").val() != "desc" ? list.sort((a, b) => {return b.id - a.id}) : list;
     let displayStyle = Main.getClassroomManager().displayMode;
@@ -833,14 +858,23 @@ function teacherActivitiesDisplay(list = Main.getClassroomManager()._myTeacherAc
         foldersManager.resetTreeFolders();
     }
 
-    if (displayStyle == "list") {
-        $("#list-activities-teacher").css("flex-direction", "column")
-    } else {
-        $("#list-activities-teacher").css("flex-direction", "row")
-    }
+    $('#list-activities-teacher').html(``);
+    displayStyle == "list" ? $("#list-activities-teacher").css("flex-direction", "column") : $("#list-activities-teacher").css("flex-direction", "row");
+
+
+    // Add sorting to the folders
+    let foldersZ = keyword ? filterTeacherFolderInList(keyword, asc) : foldersManager.userFolders;
+    foldersZ.forEach(folder => {
+        if (folder.parentFolder == null && foldersManager.actualFolder == null) {
+            $('#list-activities-teacher').append(teacherFolder(folder, displayStyle));
+        } else if (folder.parentFolder != null) {
+            if (folder.parentFolder.id == foldersManager.actualFolder) {
+                $('#list-activities-teacher').append(teacherFolder(folder, displayStyle));
+            }
+        }
+    });
 
     
-    $('#list-activities-teacher').html(``);
     sortedList.forEach(element => {
         if (element.folder == null && foldersManager.actualFolder == null) {
             $('#list-activities-teacher').append(teacherActivityItem(element, displayStyle));
@@ -851,19 +885,34 @@ function teacherActivitiesDisplay(list = Main.getClassroomManager()._myTeacherAc
         }
     });
 
-    foldersManager.userFolders.forEach(folder => {
-        if (folder.parentFolder == null && foldersManager.actualFolder == null) {
-            $('#list-activities-teacher').append(teacherFolder(folder, displayStyle));
-        } else if (folder.parentFolder != null) {
-            if (folder.parentFolder.id == foldersManager.actualFolder) {
-                $('#list-activities-teacher').append(teacherFolder(folder, displayStyle));
-            }
-        }
-    });
 
     foldersManager.dragulaInitObjects();
     $('[data-toggle="tooltip"]').tooltip();
 }
+
+
+function filterTeacherFolderInList(keywords = [], asc = true) {
+
+    let expression = ''
+    for (let i = 0; i < keywords.length; i++) {
+        expression += '(?=.*'
+        expression += keywords[i].toUpperCase()
+        expression += ')'
+    }
+    regExp = new RegExp(expression)
+    let list = foldersManager.userFolders.filter(x => regExp.test(x.name.toUpperCase()))
+    if (asc) {
+        return list.sort(function (a, b) {
+            return a["id"] - b["id"];
+        })
+    } else {
+        return list.sort(function (a, b) {
+            return b["id"] - a["id"];
+        })
+    }
+}
+
+
 
 $('body').on('change', '#action-teach-setting', function () {
     console.log('check')
@@ -885,16 +934,13 @@ function toggleBlockClass() {
         
     } else {
         classroom.isBlocked = true;
-        console.log("blocked");
         $('#blocking-class-tooltip').addClass('greyscale');
         $('#blocking-class-tooltip > i.fa').removeClass('fa-lock-open').addClass('fa-lock');
         $('#classroom-info > *:not(#blocking-class-tooltip)').css('opacity', '0.5');
         $('#blocking-class-tooltip').tooltip("dispose");
         $('#blocking-class-tooltip').attr("title", i18next.t('classroom.classes.activationLinkDisabled')).tooltip();
     }
-    Main.getClassroomManager().updateClassroom(classroom).then(function (response) {
-        console.log(`Classroom locked: ${response.isBlocked}`);
-    });
+    Main.getClassroomManager().updateClassroom(classroom);
 }
 
 // Show the month in string format
@@ -910,11 +956,6 @@ function formatHour(da) {
     let twoDigitsHour = d.getHours() < 10 ? '0' + d.getHours() : d.getHours();
     return d.getDate() + " " + (translatedMonth) + " " + d.getFullYear() + " - " + twoDigitsHour + "h" + d.getMinutes();
 }
-
-/* function docopy(self) {
-
-    
-} */
 
 function returnToConnectionPanel(currentPanel) {
     if (window.getComputedStyle(document.getElementById('classroom-register-container')).display == 'block') {
@@ -1004,6 +1045,29 @@ function resetStudentPassword(querySelector) {
 
 $('#create_group_manager').click(function () {
     pseudoModal.openModal('manager-create-group');
+
+
+    $('#group_global_restrictions').html(`
+            <div class="activity-add-form c-secondary-form my-3">
+
+            <h6 class="form-check-label font-weight-bold mb-4" style="color: var(--classroom-primary)">${i18next.t('manager.group.groupsRestrictions')}</h6>
+            <br>
+            <label class="form-check-label" for="groupe_create_begin_date"><i class="far fa-calendar-alt"></i>  ${i18next.t('classroom.activities.form.dateBegin')}</label>
+            <input type="date" id="groupe_create_begin_date" name="trip-start" max="2023-12-31">
+
+            <label class="form-check-label" for="groupe_create_end_date"><i class="far fa-calendar-alt"></i>  ${i18next.t('classroom.activities.form.dateEnd')}</label>
+            <input type="date" id="groupe_create_end_date" name="trip-start" max="2025-12-31">
+
+            <label class="form-check-label" data-toggle="tooltip" title="${i18next.t('manager.apps.infoMaxStudentsPerTeachers')}" for="groupe_create_max_students_per_teachers"><i class="fas fa-user-alt"></i>  ${i18next.t('manager.group.studentsPerTeacher')}</label>
+            <input type="number" id="groupe_create_max_students_per_teachers" value="0">
+
+            <label class="form-check-label" data-toggle="tooltip" title="${i18next.t('manager.apps.infoMaxStudentsPerGroups')}" for="groupe_create_max_students_per_groups"><i class="fas fa-user-alt"></i>  ${i18next.t('manager.group.studentsPerGroup')}</label>
+            <input type="number" id="groupe_create_max_students_per_groups" value="0">
+
+            <label class="form-check-label" data-toggle="tooltip" title="${i18next.t('manager.apps.infoMaxTeachers')}" for="groupe_create_max_teachers_per_groups"><i class="fas fa-user-alt"></i>  ${i18next.t('manager.group.teachersPerGroup')}</label>
+            <input type="number" id="groupe_create_max_teachers_per_groups" value="0">
+            </div>`);
+
     // Clean input
     $('#group_name').val("");
     $('#group_desc').val("");
@@ -1023,21 +1087,24 @@ function createGroupWithModal() {
         $description = $('#group_desc').val(),
         ApplicationsData = [];
 
+    const GlobalRestrictions = [
+            $('#groupe_create_begin_date').val(),
+            $('#groupe_create_end_date').val(),
+            $('#groupe_create_max_students_per_teachers').val(),
+            $('#groupe_create_max_students_per_groups').val(),
+            $('#groupe_create_max_teachers_per_groups').val(),
+        ];
+
     $("input:checkbox.form-check-input.app").each(function () {
         const ApplicationTemp = [$(this).val(),
             $(this).is(':checked'),
-            $('#begin_date_' + $(this).val()).val(),
-            $('#end_date_' + $(this).val()).val(),
-            $('#max_students_per_teachers_' + $(this).val()).val(),
-            $('#max_students_per_groups_' + $(this).val()).val(),
-            $('#max_teachers_per_groups_' + $(this).val()).val(),
             $('#max_activities_per_groups_' + $(this).val()).val(),
             $('#max_activities_per_teachers_' + $(this).val()).val()
         ]
         ApplicationsData.push(ApplicationTemp);
     });
 
-    mainManager.getmanagerManager().createGroup($description, $name, JSON.stringify(ApplicationsData)).then((response) => {
+    mainManager.getmanagerManager().createGroup($description, $name, JSON.stringify(ApplicationsData), JSON.stringify(GlobalRestrictions)).then((response) => {
         if (response.response == "success") {
             displayNotification('#notif-div', "manager.group.groupCreated", "success");
         } else {
@@ -1101,6 +1168,7 @@ function updateGroupWithModal() {
         $('#max_students_per_groups').val(),
         $('#max_teachers_per_groups').val(),
     ];
+
     $("input:checkbox.form-check-input.app").each(function (element) {
         const ApplicationTemp = [$(this).val(),
             $(this).is(':checked'),
@@ -1109,6 +1177,7 @@ function updateGroupWithModal() {
         ]
         ApplicationsData.push(ApplicationTemp);
     });
+
     mainManager.getmanagerManager().updateGroup(
         $('#upd_group_id').val(),
         $('#upd_group_name').val(),
@@ -2918,7 +2987,6 @@ function updateApp(app_id) {
         $('#app_update_id').val(response.id);
         $('#app_update_activity_restriction_value').val(response.max_per_teachers);
 
-        $('#app_update_background_image').val(response.background_image);
         $('#app_update_sort_index').val(response.sort);
 
         if (response.hasOwnProperty('lti')) {
@@ -2943,10 +3011,8 @@ function deleteApp(app_id, app_name) {
     $('#application_delete_name').text(app_name);
     $('#validation_delete_application_id').val(app_id);
 }
-/**
- *         $('#app_update_background_image').val(response.id);
-        $('#app_update_sort_index').val(response.id);
- */
+
+
 function persistUpdateApp() {
     let $application_id = $('#app_update_id').val(),
         $application_name = $('#app_update_name').val(),
@@ -2955,7 +3021,6 @@ function persistUpdateApp() {
         $application_image = $('#app_update_image').val(),
         $application_restrictions_value = $('#app_update_activity_restriction_value').val(),
         lti = checkLtiFields('update'),
-        $application_background_image = $('#app_update_background_image').val(),
         $application_sort_index = $('#app_update_sort_index').val();
 
     if (!lti.isLti && $('#update_isLti').is(":checked")) {
@@ -2969,7 +3034,6 @@ function persistUpdateApp() {
             lti,
             $application_color,
             $application_restrictions_value,
-            $application_background_image,
             $application_sort_index).then((response) => {
             if (response.message == "success") {
                 displayNotification('#notif-div', "manager.apps.updateSuccess", "success");
@@ -3008,7 +3072,6 @@ function persistCreateApp() {
         $application_image = $('#app_create_image').val(),
         $application_restrictions_value = $('#app_create_activity_restriction_value').val(),
         lti = checkLtiFields('create'),
-        $application_background_image = $('#app_create_background_image').val(),
         $application_sort_index = $('#app_create_sort_index').val();
 
     
@@ -3021,7 +3084,6 @@ function persistCreateApp() {
             $application_image, lti, 
             $application_color, 
             $application_restrictions_value,
-            $application_background_image,
             $application_sort_index).then((response) => {
             if (response.message == "success") {
                 displayNotification('#notif-div', "manager.apps.createSuccess", "success");
@@ -3038,11 +3100,11 @@ function persistCreateApp() {
  * Img manager
  */
 
-$('body').on('change', '#app_create_image', function () {
+$('body').on('input', '#app_create_image', function () {
     updateImg('app_create_image');
 })
 
-$('body').on('change', '#app_update_image', function () {
+$('body').on('input', '#app_update_image', function () {
     updateImg('app_update_image');
 })
 
@@ -3313,6 +3375,7 @@ $('#btn-help-for-groupAdmin').click(function () {
         $('#groupadmin-contact-subject-input').val("");
     })
 })
+
 /* Add tooltip to info  */
 function setAddFieldTooltips() {
     $('#infoRetroAttribution').tooltip("dispose");
@@ -3333,3 +3396,32 @@ function facultativeOptions() {
     $('#i-facultative-options').toggleClass('fa-chevron-down')
     $('#i-facultative-options').toggleClass('fa-chevron-up')
 }
+
+
+function activityPreviewToggler() {
+    $('#activity-preview').toggle()
+    $('#i-activity-preview').toggleClass('fa-chevron-down')
+    $('#i-activity-preview').toggleClass('fa-chevron-up')
+}
+
+$('#qr-copy').click(() => {
+    if ($("#classroom-code-share-qr-code").find("canvas").length > 0) {
+        const canvasImg = $("#classroom-code-share-qr-code").find("canvas")[0];
+        canvasImg.toBlob(function(blob) { 
+            const item = new ClipboardItem({ "image/png": blob });
+            navigator.clipboard.write([item]); 
+        });
+    }
+})
+
+$('#qr-download').click(() => {
+    if ($("#classroom-code-share-qr-code").find("canvas").length > 0) {
+        const canvasImg = $("#classroom-code-share-qr-code").find("canvas")[0];
+        let link = document.createElement('a');
+        link.download = 'qr-code.png';
+        link.href = canvasImg.toDataURL()
+        link.click();
+    }
+})
+
+
