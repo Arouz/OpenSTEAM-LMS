@@ -40,9 +40,6 @@ use Classroom\Controller\ControllerActivityLinkUser;
 use Interfaces\Controller\ControllerProjectLinkUser;
 use Classroom\Controller\ControllerClassroomLinkUser;
 
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
 
 $dotenv = Dotenv::createImmutable(__DIR__ . "/../");
 $dotenv->safeLoad();
@@ -50,6 +47,11 @@ $dotenv->safeLoad();
 const OK = "OK";
 $controller = isset($_GET['controller']) ? $_GET['controller'] : null;
 $action = isset($_GET['action']) ? $_GET['action'] : null;
+
+// Intercept action.
+$logPath = isset($_ENV['VS_LOG_PATH']) ? $_ENV['VS_LOG_PATH'] : "/logs/log.log";
+$log = Log::createSharedInstance($controller, $logPath, Logger::NOTICE);
+
 try {
     // Get User.
     session_start();
@@ -83,9 +85,6 @@ try {
             }
         }
     }
-    // Intercept action.
-    $logPath = isset($_ENV['VS_LOG_PATH']) ? $_ENV['VS_LOG_PATH'] : "/logs/log.log";
-    $log = Log::createSharedInstance($controller, $logPath, Logger::NOTICE);
 
     // get and scan the entire plugins folder
     $pluginsDir = '../plugins';
