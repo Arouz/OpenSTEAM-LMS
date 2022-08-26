@@ -36,7 +36,8 @@
 <body>
     <div id="cgv-div" class="container">
 
-        <h1>Conditions générales d’utilisation</h1>
+        <h1 style="padding-top: 1.5em; ">Conditions générales d’utilisation</h1>
+        <p>&nbsp;</p>
         <h2>1. Champ d'application</h2>
         <p>
             Le site areneducation.com est un service de la société ARÉN Éducation dont
@@ -248,6 +249,9 @@
             le visiteur et ne servent qu'à améliorer le service personnalisé qui lui
             est destiné.
         </p>
+        <p>
+            ARÉN Éducation respecte la conformité au contrat et à l’usage tel qu'énoncés aux articles <a href="https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000044142575" target="_blank">L. 217-4</a> et <a href="https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000044142571" target="_blank">L. 217-5</a> du code de la consommation pour les biens et aux articles <a href="https://www.legifrance.gouv.fr/loda/article_lc/LEGIARTI000044132958" target="_blank">L. 224-25-13</a> et <a href="https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000044132967" target="_blank">L. 224-25-14</a> du code de la consommation pour les contenus et services numériques.
+        </p>
         <h2>
             10. Responsabilité
         </h2>
@@ -277,6 +281,8 @@
             situe le siège social de ARÉN Éducation et où est formalisé le contrat de
             vente entre les parties.
         </p>
+
+        <p>Mise à jour le 13 juin 2022</p>
 
     </div>
     <script src="assets/js/lib/popper-1.12.9.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous">

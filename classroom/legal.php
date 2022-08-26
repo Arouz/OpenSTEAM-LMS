@@ -35,6 +35,9 @@
 
 <body>
     <div id="legal-div" class="container">
+
+        <h1 style="padding-top: 1.5em; ">Mentions légales</h1>
+        <p>&nbsp;</p>
         <h2>
             Identification
         </h2>
@@ -48,11 +51,7 @@
             <br />
             Directeur général : Mélanie Rizk
         </p>
-        <p>
-            <a href="https://areneducation.com/mentions-legales.html" title="Nous écrire">
-                info@areneducation.com
-            </a>
-        </p>
+        <p>info@areneducation.com</p>
         <p>
             #RCS : 850 403 692 00013
             <br />
@@ -65,19 +64,12 @@
             Crédits
         </h2>
         <p>
-            Le graphisme et le développement de ce site ont été réalisés par la société
-            Option PME Inc.
-        </p>
-        <p>
             Tous les éléments représentés dans ce site appartiennent à ARÉN Éducation,
             sauf mention contraire. Tous droits de représentation, de reproduction et
             d'adaptation réservés.
         </p>
         <p>
-            © ARÉN Éducation 2019.
-        </p>
-        <p>
-            Nous reconnaissons l'appui de Patrimoine Canada.
+            © ARÉN Éducation 2022.
         </p>
 
         <h2>
@@ -141,18 +133,12 @@
             Hébergeur
         </h2>
         <p>
-            Centre de données OVH / Hébergement Web Canada
+            Centre de données OVH (OVHcloud) France
             <br />
-            1030 Beaubien Est #103, Montréal, Québec H2S 1T4 Canada
+            2 rue Kellermann, 59100 Roubaix, France
         </p>
-        <p>
-            Téléphone :
-            <a href="https://areneducation.com/mentions-legales.html" title="Téléphone">
-                +1.514.504.2113
-            </a>
-            <br />
-            Site Internet : <a href="https://whc.ca/" target="_blank" title="WHC">https://whc.ca/</a>
-        </p>
+
+        <p>Mise à jour le 13 juin 2022</p>
 
     </div>
     <script src="assets/js/lib/popper-1.12.9.min.js"></script>

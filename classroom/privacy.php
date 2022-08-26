@@ -36,7 +36,7 @@
 <body>
     <div id="cgv-div" class="container">
 
-        <h1>Politique de protection des données personnelles</h1>
+        <h1 style="padding-top: 1.5em; ">Politique de protection des données personnelles</h1>
         <p>
             Dans le cadre de votre utilisation de l’Application « ARÉN+ » (ci-après, «
             l’Application »), ARÉN Éducation collecte et traite des données à caractère
@@ -56,9 +56,10 @@
             liés à l’accès et à l’utilisation de l’Application sont régis par les
             textes qui encadrent le fonctionnement du GAR accessibles à l’adresse
             suivante :
-            <a href="https://gar.education.fr/mentions-informatives-rgpd/">
+            <a href="https://gar.education.fr/mentions-informatives-rgpd/" target="_blank">
                 https://gar.education.com/mentions-informatives-rgpd/
             </a>
+        </p>
         <p>
             Dans ce cas, le ministère de l’éducation nationale est responsable du
             traitement des Données.
@@ -70,26 +71,13 @@
         <p>
             ARÉN Éducation se préoccupe de la protection de la vie privée. Il n'y a pas
             de donnée enregistrée qui vous reconnaît personnellement quand vous
-            naviguez sur le site. Toutefois, ARÉN Éducation utilise des
-            fichiers-témoins (« cookies ») pour trois fonctions :
+            naviguez sur le site. Nous confirmons qu’aucun transfert de donnée à caractère personnel vers des pays tiers ou à des organisations internationales ne sera toléré. ARÉN Éducation utilise des
+            fichiers-témoins (« cookies ») pour deux fonctions :
         </p>
         <ul type="disc">
             <li>
                 Gérer et faciliter l'accès aux fonctions de commande en ligne et
                 l'espace dédié aux membres;
-            </li>
-            <li>
-                Comptabiliser le nombre de visiteurs différents au cours d'une période
-                donnée (jour, semaine, mois, année). À ce sujet, le site utilise
-                <a href="https://policies.google.com/technologies/cookies?hl=fr" target="_blank" title="Google Analytics">
-                    Google Analytics
-                </a>
-                pour analyser l'audience et améliorer son contenu. Cliquer sur
-                <a href="https://policies.google.com/technologies/cookies?hl=fr" target="_blank" title="Google Analytics">
-                    Google Analytics
-                </a>
-                pour plus d'information sur les règles de confidentialité relatives à
-                son utilisation;
             </li>
             <li>
                 Analyser les processus de navigation sur le site afin d'en améliorer
@@ -148,6 +136,9 @@
             Ces « cookies » ne contiennent pas d’informations confidentielles
             concernant le visiteur.
         </p>
+
+        <p>Mise à jour le 13 juin 2022</p>
+                
     </div>
     <script src="assets/js/lib/popper-1.12.9.min.js"></script>
     <!--<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script> -->

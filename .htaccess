@@ -1,0 +1,31 @@
+<Limit GET POST>
+#The next line modified by DenyIP
+order allow,deny
+#The next line modified by DenyIP
+#deny from all
+allow from all
+</Limit>
+
+<Limit PUT DELETE>
+order deny,allow
+deny from all
+</Limit>
+
+<FilesMatch ".(htaccess|htpasswd|ini|phps|fla|psd|sh|zip|rar)$">
+order allow,deny
+deny from all
+</FilesMatch>
+
+RewriteEngine on
+
+RewriteCond %{HTTPS} off [OR]
+RewriteCond %{HTTP_HOST} ^www\. [NC]
+RewriteCond %{HTTP_HOST} ^(?:www\.)?(.+)$ [NC]
+RewriteRule ^(.*)$ https://dev-aren.plus/$1 [R=301,L]
+
+ErrorDocument 404 https://dev-aren.plus/
+
+<Files 403.shtml>
+order allow,deny
+allow from all
+</Files>
