@@ -111,22 +111,9 @@
     background-image: url("../images/card-quickpi.png");
 }
 
-/* Form icon label change */
+/* Activity grid - Header */
 
-.c-primary-form .icon-label,
-#new-activities-folder,
-.btn-folders {
-    filter: hue-rotate(65deg) contrast(0.7) brightness(0.9);
-}
-
-.folder-item {
-    filter: hue-rotate(65deg);
-}
-.folder-item .folder-card-top {
-    filter: hue-rotate(-65deg);
-}
-
-.folder-item .folder-card-top i {
-    color: var(--classroom-primary);
-
+#activity-creation-grid .app-head {
+    grid-column-start: 1;
+    grid-column-end: -1;
 }
