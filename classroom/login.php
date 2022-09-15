@@ -28,6 +28,8 @@ if ($user) {
 require_once(__DIR__ . "/header.html");
 ?>
 <link rel="stylesheet" href="/classroom/assets/css/main.css">
+<link rel="stylesheet" href="/classroom/assets/plugins/css/aren.theme.main.css">
+<link rel="stylesheet" href="/classroom/assets/plugins/css/aren.theme.css">
 
 <script src="./assets/js/lib/rotate.js"></script>
 <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css" />
