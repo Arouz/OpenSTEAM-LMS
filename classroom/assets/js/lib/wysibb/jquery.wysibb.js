@@ -257,44 +257,6 @@ wbbdebug = false;
 			//END img upload config
 			buttons: "answer,bold,italic,underline,strike,sup,sub,|,img,video,peertube,vimeo,link,|,bullist,numlist,|,fontcolor,fontsize,fontfamily,|,justifyleft,justifycenter,justifyright,|,quote,code,table,removeFormat",
 			allButtons: {
-				vittaiframe: {
-					title: CURLANG.vittaiframe,
-					buttonHTML: '<img src="/classroom/assets/media/activity/SigleVittascience.svg" height="26" height="26" style="margin-top: 2px;"/>',
-					hotkey: '',
-					modal: {
-						title: CURLANG.modal_vitta_title,
-						width: "500px",
-						tabs: [{
-							input: [{
-								param: "URL",
-								title: CURLANG.modal_vitta_url,
-								validation: '^http(s)?:\/\/(fr.|en.|valpha.|vgamma.|vdelta.|vbeta.|vepsilon.|veta.|vtheta.|viota.|vkappa.|vzeta.|vdev.|)vittascience(.com)?'
-							}]
-						}]
-					},
-					transform: {
-						'<div>{URL}</div>': '[iframe]{URL}[/iframe]'
-					}
-				},
-				cabriiframe: {
-					title: CURLANG.cabriiframe,
-					buttonHTML: '<span class="btn-inner btn-span-cabri"><img class="btn-cabri" src="/classroom/assets/media/cabri_logo.png"></span>',
-					hotkey: '',
-					modal: {
-						title: CURLANG.modal_cabri_title,
-						width: "500px",
-						tabs: [{
-							input: [{
-								param: "URL",
-								title: CURLANG.modal_cabri_url,
-								validation: '^http(s)?:\/\/.*'
-							}]
-						}]
-					},
-					transform: {
-						'<div>{URL}</div>': '[iframe]{URL}[/iframe]'
-					}
-				},
 				vittapdf: {
 					title: CURLANG.vittapdf,
 					buttonHTML: '<i class="fas fa-file-pdf" style="height:27px;width:31px;font-size:20px;text-align:center;padding-top: 5px;"></i>',
